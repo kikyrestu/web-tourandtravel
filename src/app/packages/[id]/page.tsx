@@ -82,7 +82,7 @@ const packageDetails: PackageDetail[] = [
     location: "Bromo, Jawa Timur",
     highlights: ["Sunrise Penanjakan", "Lautan Pasir", "Kawah Bromo", "Hutan Pinus"],
     description: "Nikmati pengalaman tak terlupakan menyaksikan sunrise spektakuler dari puncak Penanjakan. Paket ini mencakup transportasi, penginapan, makan, dan pemandu wisata profesional.",
-    image: "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=600&h=400&dpr=1",
+    image: "/bromo-sunrise.jpg",
     itinerary: [
       {
         day: 1,
@@ -155,7 +155,7 @@ const packageDetails: PackageDetail[] = [
     location: "Ijen, Jawa Timur",
     highlights: ["Blue Fire", "Kawah Ijen", "Air Terjun", "Kebun Kopi"],
     description: "Petualangan ekstrem menyaksikan fenomena alam langka Blue Fire di tengah malam. Dilengkapi dengan safety equipment dan pemandu berpengalaman.",
-    image: "https://images.unsplash.com/photo-1582009635269-2330ae079f1b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=600&h=400&dpr=1",
+    image: "/ijen-bluefire.jpg",
     itinerary: [
       {
         day: 1,
@@ -244,7 +244,7 @@ const packageDetails: PackageDetail[] = [
     location: "Bromo & Ijen, Jawa Timur",
     highlights: ["Bromo Sunrise", "Ijen Blue Fire", "Savana Hill", "Traditional Village"],
     description: "Paket lengkap mengunjungi dua destinasi legendaris Jawa Timur. Gabungan antara keindahan sunrise Bromo dan misteri Blue Fire Ijen dalam satu perjalanan.",
-    image: "https://images.unsplash.com/photo-1637292872273-1fc99340ac04?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=600&h=400&dpr=1",
+    image: "/nusantara-landscape.jpg",
     itinerary: [
       {
         day: 1,
