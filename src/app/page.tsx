@@ -552,7 +552,7 @@ export default function Home() {
           </div>
 
           {/* Horizontal Tour Packages */}
-          <div className="overflow-x-auto pb-4">
+          <div className="overflow-x-auto pb-4 scrollbar-hide">
             <div className="flex space-x-6 w-max">
               {tourPackages.map((pkg) => (
                 <Card key={pkg.id} className="w-80 overflow-hidden hover:shadow-lg transition-shadow flex-shrink-0">
