@@ -315,6 +315,29 @@ const searchParams = useSearchParams();
     }
   };
 
+  const handleDeleteSlide = async (id: string) => {
+    try {
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch(`/api/admin/hero/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        // Refresh the slides list
+        fetchHeroSlides();
+        alert('Hero slide deleted successfully!');
+      } else {
+        alert('Failed to delete hero slide');
+      }
+    } catch (error) {
+      console.error('Error deleting hero slide:', error);
+      alert('Error deleting hero slide');
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     router.push("/admin/login");
@@ -632,7 +655,7 @@ const searchParams = useSearchParams();
                   size="sm"
                   onClick={() => {
                     if (confirm('Are you sure you want to delete this slide?')) {
-                      // Handle delete
+                      handleDeleteSlide(slide.id);
                     }
                   }}
                 >
