@@ -572,121 +572,168 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative h-full flex items-center">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl text-white">
-              {/* Badge */}
-              <div className={`flex items-center space-x-2 mb-6 transform transition-all duration-1000 ${
-                isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
-              }`}>
-                <Badge className="bg-orange-500 text-white border-orange-400">
-                  <Star className="w-4 h-4 mr-1" />
-                  {heroSlides[currentSlide].stats.rating}/5.0
-                </Badge>
-                <Badge variant="outline" className="border-white text-white">
-                  {heroSlides[currentSlide].stats.reviews.toLocaleString()} Reviews
-                </Badge>
-                <Badge variant="outline" className="border-white text-white">
-                  {heroSlides[currentSlide].stats.tours.toLocaleString()}+ Tours
-                </Badge>
-              </div>
-
-              {/* Main Title with Animated Underline */}
-              <div className={`relative mb-6 transform transition-all duration-1000 ${
-                isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
-              }`}>
-                <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
-                  {heroSlides[currentSlide].title}
-                </h1>
-                <div className="absolute -bottom-2 left-0 w-32 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-pulse"></div>
-              </div>
-
-              {/* Subtitle */}
-              <p className={`text-xl md:text-2xl mb-8 text-gray-100 leading-relaxed transform transition-all duration-1000 delay-200 ${
-                isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
-              }`}>
-                {heroSlides[currentSlide].subtitle}
-              </p>
-
-              {/* Description */}
-              <p className={`text-lg mb-8 text-gray-200 leading-relaxed transform transition-all duration-1000 delay-300 ${
-                isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
-              }`}>
-                Bergabunglah dengan ribuan pelanggan yang telah merasakan pengalaman wisata tak terlupakan bersama kami. 
-                Dapatkan penawaran terbaik dan pelayanan profesional untuk liburan impian Anda.
-              </p>
-
-              {/* Feature Tags */}
-              <div className={`flex flex-wrap gap-3 mb-8 transform transition-all duration-1000 delay-400 ${
-                isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
-              }`}>
-                {heroSlides[currentSlide].features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
-                    <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                    <span className="text-sm text-white">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Action Buttons */}
-              <div className={`flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 transform transition-all duration-1000 delay-500 ${
-                isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
-              }`}>
-                <Button 
-                  size="lg" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white group relative overflow-hidden"
-                  onClick={() => scrollToSection('packages')}
-                >
-                  <span className="relative z-10 flex items-center">
-                    Jelajahi Sekarang
-                    <Mountain className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                </Button>
-                
-                <Button 
-                  size="lg" 
-                  className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900"
-                  onClick={toggleVideo}
-                >
-                  <Play className="mr-2 w-5 h-5" />
-                  {isVideoPlaying ? 'Tutup Video' : 'Tonton Video'}
-                </Button>
-
-                <Button 
-                  size="lg" 
-                  variant="ghost" 
-                  className="text-white hover:bg-white/10 border border-white/20"
-                  onClick={() => scrollToSection('testimonials')}
-                >
-                  <Star className="mr-2 w-5 h-5" />
-                  Lihat Testimoni
-                </Button>
-              </div>
-
-              {/* Video Modal (Conditional) */}
-              {isVideoPlaying && (
-                <div className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 transform transition-all duration-500 ${
-                  isVideoPlaying ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Left Content - Main Hero Text */}
+              <div className="lg:col-span-7 text-white">
+                {/* Badge */}
+                <div className={`flex items-center space-x-2 mb-6 transform transition-all duration-1000 ${
+                  isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
                 }`}>
-                  <div className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden">
-                    <button 
-                      onClick={toggleVideo}
-                      className="absolute top-4 right-4 z-10 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors"
-                    >
-                      ✕
-                    </button>
-                    <div className="aspect-video bg-gray-900 flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <Play className="w-16 h-16 mx-auto mb-4 text-orange-500" />
-                        <h3 className="text-xl font-semibold mb-2">Video Preview</h3>
-                        <p className="text-gray-400">Video untuk {heroSlides[currentSlide].title}</p>
+                  <Badge className="bg-orange-500 text-white border-orange-400">
+                    <Star className="w-4 h-4 mr-1" />
+                    {heroSlides[currentSlide].stats.rating}/5.0
+                  </Badge>
+                  <Badge variant="outline" className="border-white text-white">
+                    {heroSlides[currentSlide].stats.reviews.toLocaleString()} Reviews
+                  </Badge>
+                  <Badge variant="outline" className="border-white text-white">
+                    {heroSlides[currentSlide].stats.tours.toLocaleString()}+ Tours
+                  </Badge>
+                </div>
+
+                {/* Main Title with Animated Underline */}
+                <div className={`relative mb-6 transform transition-all duration-1000 ${
+                  isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+                }`}>
+                  <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                    {heroSlides[currentSlide].title}
+                  </h1>
+                  <div className="absolute -bottom-2 left-0 w-32 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-pulse"></div>
+                </div>
+
+                {/* Subtitle */}
+                <p className={`text-lg md:text-xl mb-6 text-gray-100 leading-relaxed transform transition-all duration-1000 delay-200 ${
+                  isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+                }`}>
+                  {heroSlides[currentSlide].subtitle}
+                </p>
+
+                {/* Description */}
+                <p className={`text-base md:text-lg mb-8 text-gray-200 leading-relaxed transform transition-all duration-1000 delay-300 ${
+                  isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+                }`}>
+                  Bergabunglah dengan ribuan pelanggan yang telah merasakan pengalaman wisata tak terlupakan bersama kami. 
+                  Dapatkan penawaran terbaik dan pelayanan profesional untuk liburan impian Anda.
+                </p>
+
+                {/* Feature Tags */}
+                <div className={`flex flex-wrap gap-3 mb-8 transform transition-all duration-1000 delay-400 ${
+                  isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+                }`}>
+                  {heroSlides[currentSlide].features.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <span className="text-sm text-white">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action Buttons */}
+                <div className={`flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 transform transition-all duration-1000 delay-500 ${
+                  isAnimating ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+                }`}>
+                  <Button 
+                    size="lg" 
+                    className="bg-orange-500 hover:bg-orange-600 text-white group relative overflow-hidden"
+                    onClick={() => scrollToSection('packages')}
+                  >
+                    <span className="relative z-10 flex items-center">
+                      Jelajahi Sekarang
+                      <Mountain className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                  </Button>
+                  
+                  <Button 
+                    size="lg" 
+                    className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900"
+                    onClick={toggleVideo}
+                  >
+                    <Play className="mr-2 w-5 h-5" />
+                    {isVideoPlaying ? 'Tutup Video' : 'Tonton Video'}
+                  </Button>
+
+                  <Button 
+                    size="lg" 
+                    variant="ghost" 
+                    className="text-white hover:bg-white/10 border border-white/20"
+                    onClick={() => scrollToSection('testimonials')}
+                  >
+                    <Star className="mr-2 w-5 h-5" />
+                    Lihat Testimoni
+                  </Button>
+                </div>
+              </div>
+
+              {/* Right Content - Visual Elements */}
+              <div className="lg:col-span-5 hidden lg:block">
+                <div className={`relative transform transition-all duration-1000 delay-300 ${
+                  isAnimating ? "translate-x-4 opacity-0" : "translate-x-0 opacity-100"
+                }`}>
+                  {/* Decorative Elements */}
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-orange-500/20 rounded-full blur-xl"></div>
+                  <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-red-500/20 rounded-full blur-xl"></div>
+                  
+                  {/* Stats Cards */}
+                  <div className="space-y-4 relative z-10">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-300">Customer Rating</p>
+                          <p className="text-2xl font-bold text-white">{heroSlides[currentSlide].stats.rating}/5.0</p>
+                        </div>
+                        <Star className="w-8 h-8 text-orange-400" />
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-300">Happy Travelers</p>
+                          <p className="text-2xl font-bold text-white">{heroSlides[currentSlide].stats.reviews.toLocaleString()}+</p>
+                        </div>
+                        <Users className="w-8 h-8 text-blue-400" />
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-300">Successful Tours</p>
+                          <p className="text-2xl font-bold text-white">{heroSlides[currentSlide].stats.tours.toLocaleString()}+</p>
+                        </div>
+                        <MapPin className="w-8 h-8 text-green-400" />
                       </div>
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Video Modal (Conditional) */}
+        {isVideoPlaying && (
+          <div className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 transform transition-all duration-500 ${
+            isVideoPlaying ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          }`}>
+            <div className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden">
+              <button 
+                onClick={toggleVideo}
+                className="absolute top-4 right-4 z-10 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors"
+              >
+                ✕
+              </button>
+              <div className="aspect-video bg-gray-900 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <Play className="w-16 h-16 mx-auto mb-4 text-orange-500" />
+                  <h3 className="text-xl font-semibold mb-2">Video Preview</h3>
+                  <p className="text-gray-400">Video untuk {heroSlides[currentSlide].title}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Slide Indicators */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
