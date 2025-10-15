@@ -8,7 +8,7 @@ export async function GET() {
       orderBy: { sortOrder: 'asc' }
     });
 
-    return NextResponse.json(faqs);
+    return NextResponse.json({ data: faqs });
   } catch (error) {
     console.error('Error fetching FAQs:', error);
     return NextResponse.json({ error: 'Failed to fetch FAQs' }, { status: 500 });

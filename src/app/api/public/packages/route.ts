@@ -14,7 +14,7 @@ export async function GET() {
       highlights: pkg.highlights ? JSON.parse(pkg.highlights) : []
     }));
 
-    return NextResponse.json(formattedPackages);
+    return NextResponse.json({ data: formattedPackages });
   } catch (error) {
     console.error('Error fetching tour packages:', error);
     return NextResponse.json({ error: 'Failed to fetch tour packages' }, { status: 500 });

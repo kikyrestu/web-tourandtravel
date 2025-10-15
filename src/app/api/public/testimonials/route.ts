@@ -8,7 +8,7 @@ export async function GET() {
       orderBy: { createdAt: 'desc' }
     });
 
-    return NextResponse.json(testimonials);
+    return NextResponse.json({ data: testimonials });
   } catch (error) {
     console.error('Error fetching testimonials:', error);
     return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });

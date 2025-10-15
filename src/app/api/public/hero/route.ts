@@ -15,7 +15,7 @@ export async function GET() {
       stats: slide.stats ? JSON.parse(slide.stats) : {}
     }));
 
-    return NextResponse.json(formattedSlides);
+    return NextResponse.json({ data: formattedSlides });
   } catch (error) {
     console.error('Error fetching hero slides:', error);
     return NextResponse.json({ error: 'Failed to fetch hero slides' }, { status: 500 });

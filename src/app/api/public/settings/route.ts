@@ -15,7 +15,7 @@ export async function GET() {
       socialLinks: settings.socialLinks ? JSON.parse(settings.socialLinks) : {}
     };
 
-    return NextResponse.json(formattedSettings);
+    return NextResponse.json({ data: formattedSettings });
   } catch (error) {
     console.error('Error fetching settings:', error);
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, MapPin, Clock, Users, Calendar, ChevronLeft, ChevronRight, Facebook, Instagram, Twitter, Phone, Mail, MapPinned, Clock3, Quote, Play, Mountain, Camera, Heart, Sparkles, HelpCircle, ChevronDown, ChevronUp, Search, ZoomIn, Share } from "lucide-react";
+import { Star, MapPin, Clock, Users, Calendar, ChevronLeft, ChevronRight, Facebook, Instagram, Twitter, Phone, Mail, MapPinned, Clock3, Quote, Play, Mountain, Camera, Heart, Sparkles, HelpCircle, ChevronDown, ChevronUp, Search, ZoomIn, Share, Youtube } from "lucide-react";
 
 interface HeroSlide {
   id: string;
@@ -480,13 +480,191 @@ export default function Home() {
         </button>
       </section>
 
-      {/* Rest of the sections would go here... */}
-      {/* For now, adding a simple placeholder */}
-      <section className="py-20 bg-gray-50">
+      {/* Tour Packages Section */}
+      <section id="packages" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Selamat Datang di Nusantara Tour</h2>
-            <p className="text-lg text-gray-600">Temukan pengalaman wisata tak terlupakan bersama kami</p>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Paket Tour Kami</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Pilih paket tour terbaik untuk pengalaman wisata tak terlupakan bersama kami
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {tourPackages.map((pkg) => (
+              <Card key={pkg.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="relative h-48">
+                  {pkg.image && (
+                    <img
+                      src={pkg.image}
+                      alt={pkg.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                  {pkg.discount && (
+                    <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      {pkg.discount} OFF
+                    </div>
+                  )}
+                </div>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-xl">{pkg.name}</CardTitle>
+                    <div className="flex items-center space-x-1">
+                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                      <span className="text-sm font-semibold">{pkg.rating}</span>
+                      <span className="text-sm text-gray-500">({pkg.reviews})</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <Clock className="w-4 h-4" />
+                    <span>{pkg.duration}</span>
+                    <MapPin className="w-4 h-4 ml-2" />
+                    <span>{pkg.location}</span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4 text-sm">{pkg.description}</p>
+                  
+                  <div className="space-y-2 mb-4">
+                    {pkg.highlights?.slice(0, 3).map((highlight, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <span className="text-sm text-gray-600">{highlight}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div>
+                      {pkg.originalPrice && (
+                        <span className="text-sm text-gray-500 line-through">{pkg.originalPrice}</span>
+                      )}
+                      <div className="text-2xl font-bold text-orange-500">{pkg.price}</div>
+                    </div>
+                    <Button className="bg-orange-500 hover:bg-orange-600">
+                      Pesan Sekarang
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {tourPackages.length === 0 && (
+            <div className="text-center py-12">
+              <Mountain className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+              <p className="text-gray-500">Belum ada paket tour tersedia</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Testimoni Pelanggan</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Dengarkan pengalaman langsung dari pelanggan yang telah berwisata bersama kami
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            {testimonials.length > 0 ? (
+              <div className="relative">
+                <Card className="p-8">
+                  <CardContent className="text-center">
+                    <Quote className="w-12 h-12 mx-auto text-orange-400 mb-6" />
+                    <p className="text-lg text-gray-700 mb-6 italic">
+                      "{testimonials[currentTestimonial].comment}"
+                    </p>
+                    <div className="flex items-center justify-center space-x-2 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-5 h-5 ${
+                            i < testimonials[currentTestimonial].rating
+                              ? 'text-yellow-400 fill-current'
+                              : 'text-gray-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{testimonials[currentTestimonial].name}</h4>
+                      <p className="text-sm text-gray-600">{testimonials[currentTestimonial].tour}</p>
+                      <p className="text-xs text-gray-500 mt-1">{testimonials[currentTestimonial].date}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <button
+                  onClick={prevTestimonial}
+                  className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <ChevronLeft className="w-6 h-6 text-gray-600" />
+                </button>
+                <button
+                  onClick={nextTestimonial}
+                  className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <ChevronRight className="w-6 h-6 text-gray-600" />
+                </button>
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <Quote className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                <p className="text-gray-500">Belum ada testimoni tersedia</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Pertanyaan Umum</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Temukan jawaban untuk pertanyaan yang sering diajukan tentang layanan kami
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            {faqs.length > 0 ? (
+              <div className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <Card key={faq.id}>
+                    <CardHeader>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-between p-0 h-auto"
+                        onClick={() => toggleFAQ(index)}
+                      >
+                        <span className="text-left font-semibold">{faq.question}</span>
+                        {openFAQ === index ? (
+                          <ChevronUp className="w-5 h-5" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5" />
+                        )}
+                      </Button>
+                    </CardHeader>
+                    {openFAQ === index && (
+                      <CardContent>
+                        <p className="text-gray-600">{faq.answer}</p>
+                      </CardContent>
+                    )}
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <HelpCircle className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                <p className="text-gray-500">Belum ada FAQ tersedia</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -528,15 +706,26 @@ export default function Home() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Facebook className="w-6 h-6" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Instagram className="w-6 h-6" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Twitter className="w-6 h-6" />
-                </a>
+                {settings?.socialLinks?.facebook && (
+                  <a href={settings.socialLinks.facebook} className="text-gray-400 hover:text-white transition-colors">
+                    <Facebook className="w-6 h-6" />
+                  </a>
+                )}
+                {settings?.socialLinks?.instagram && (
+                  <a href={settings.socialLinks.instagram} className="text-gray-400 hover:text-white transition-colors">
+                    <Instagram className="w-6 h-6" />
+                  </a>
+                )}
+                {settings?.socialLinks?.twitter && (
+                  <a href={settings.socialLinks.twitter} className="text-gray-400 hover:text-white transition-colors">
+                    <Twitter className="w-6 h-6" />
+                  </a>
+                )}
+                {settings?.socialLinks?.youtube && (
+                  <a href={settings.socialLinks.youtube} className="text-gray-400 hover:text-white transition-colors">
+                    <Youtube className="w-6 h-6" />
+                  </a>
+                )}
               </div>
             </div>
           </div>
