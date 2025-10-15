@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Edit, Trash2, Save, X, MoveUp, MoveDown } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, MoveUp, MoveDown, Upload, Link } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface HeroSlide {
@@ -47,6 +47,10 @@ export default function HeroPage() {
   const [features, setFeatures] = useState<FeatureInput[]>([{ id: '1', value: '' }]);
   const [stats, setStats] = useState<StatInput[]>([{ key: '', value: '' }]);
   const [isActive, setIsActive] = useState(true);
+  
+  // Image upload states
+  const [uploading, setUploading] = useState(false);
+  const [imageMode, setImageMode] = useState<'url' | 'upload'>('url');
 
   useEffect(() => {
     fetchSlides();
@@ -95,6 +99,40 @@ export default function HeroPage() {
   const handleCancel = () => {
     setEditingSlide(null);
     setIsCreating(false);
+    setImageMode('url');
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setImage(data.filePath);
+        toast.success('Image uploaded successfully!');
+      } else {
+        const error = await response.json();
+        toast.error(error.error || 'Failed to upload image');
+      }
+    } catch (error) {
+      toast.error('Error uploading image');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const addFeature = () => {
@@ -262,13 +300,73 @@ export default function HeroPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="image">Image URL</Label>
-                  <Input
-                    id="image"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                    placeholder="https://example.com/image.jpg"
-                  />
+                  <Label>Image</Label>
+                  <div className="space-y-3">
+                    {/* Toggle between URL and Upload */}
+                    <div className="flex gap-2">
+                      <Button
+                        type="button"
+                        variant={imageMode === 'url' ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setImageMode('url')}
+                        className="flex-1"
+                      >
+                        <Link className="w-4 h-4 mr-1" />
+                        URL
+                      </Button>
+                      <Button
+                        type="button"
+                        variant={imageMode === 'upload' ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setImageMode('upload')}
+                        className="flex-1"
+                      >
+                        <Upload className="w-4 h-4 mr-1" />
+                        Upload
+                      </Button>
+                    </div>
+
+                    {/* URL Input */}
+                    {imageMode === 'url' && (
+                      <Input
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                        placeholder="https://example.com/image.jpg"
+                      />
+                    )}
+
+                    {/* File Upload */}
+                    {imageMode === 'upload' && (
+                      <div className="space-y-2">
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          disabled={uploading}
+                        />
+                        {uploading && (
+                          <p className="text-sm text-gray-500">Uploading...</p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Image Preview */}
+                    {image && (
+                      <div className="mt-2">
+                        <p className="text-xs text-gray-500 mb-1">Preview:</p>
+                        <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                          <img 
+                            src={image} 
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.src = '/placeholder.jpg';
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <Label htmlFor="videoId">Video ID (YouTube)</Label>
@@ -384,9 +482,20 @@ export default function HeroPage() {
                   <p className="text-gray-600 mb-2">{slide.subtitle}</p>
                   
                   {slide.image && (
-                    <p className="text-sm text-gray-500 mb-1">
-                      Image: {slide.image}
-                    </p>
+                    <div className="mb-2">
+                      <p className="text-sm font-medium mb-1">Image Preview:</p>
+                      <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden max-w-xs">
+                        <img 
+                          src={slide.image} 
+                          alt={slide.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placeholder.jpg';
+                          }}
+                        />
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">{slide.image}</p>
+                    </div>
                   )}
                   
                   {slide.videoId && (
