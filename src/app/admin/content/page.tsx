@@ -32,7 +32,7 @@ import {
   Layers,
   FileEdit,
   Sliders,
-  Header,
+  Heading,
   Mountain,
   MapPin,
   Users as UsersIcon,
@@ -217,7 +217,7 @@ export default function ContentEditor() {
       href: "/admin/content",
       description: "Edit konten website",
       submenu: [
-        { title: "Header", icon: Header, href: "/admin/content?section=header" },
+        { title: "Header", icon: Heading, href: "/admin/content?section=header" },
         { title: "Hero Section", icon: Mountain, href: "/admin/content?section=hero" },
         { title: "Tour Packages", icon: Package, href: "/admin/content?section=packages" },
         { title: "Testimonials", icon: MessageSquare, href: "/admin/content?section=testimonials" },
@@ -258,7 +258,7 @@ export default function ContentEditor() {
   ];
 
   const contentSections = [
-    { id: 'header', title: 'Header', icon: Header, description: 'Edit header website' },
+    { id: 'header', title: 'Header', icon: Heading, description: 'Edit header website' },
     { id: 'hero', title: 'Hero Section', icon: Mountain, description: 'Edit hero section' },
     { id: 'packages', title: 'Tour Packages', icon: Package, description: 'Edit tour packages section' },
     { id: 'testimonials', title: 'Testimonials', icon: MessageSquare, description: 'Edit testimonials section' },

@@ -22,7 +22,7 @@ import {
   Trash2,
   Eye,
   FileEdit,
-  Header,
+  Heading,
   Mountain,
   Layers,
   Phone
@@ -97,7 +97,7 @@ export default function AdminDashboard() {
       href: "/admin/content",
       description: "Edit konten website",
       submenu: [
-        { title: "Header", icon: Header, href: "/admin/content?section=header" },
+        { title: "Header", icon: Heading, href: "/admin/content?section=header" },
         { title: "Hero Section", icon: Mountain, href: "/admin/content?section=hero" },
         { title: "Tour Packages", icon: Package, href: "/admin/content?section=packages" },
         { title: "Testimonials", icon: MessageSquare, href: "/admin/content?section=testimonials" },
