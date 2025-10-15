@@ -242,59 +242,127 @@ export default function Home() {
       <section className="relative h-screen overflow-hidden">
         {heroSlides.length > 0 && heroSlides[currentSlide] && (
           <>
+            {/* Background Image with Parallax Effect */}
             <div className="absolute inset-0">
               <Image
                 src={heroSlides[currentSlide].image || '/nusantara-landscape.jpg'}
                 alt={heroSlides[currentSlide].title}
                 fill
-                className="object-cover"
+                className="object-cover transform scale-110 transition-all duration-10000 ease-out"
                 priority
               />
-              <div className="absolute inset-0 bg-black/50" />
+              {/* Enhanced Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+              {/* Animated Particles Effect */}
+              <div className="absolute inset-0">
+                <div className="absolute top-20 left-10 w-2 h-2 bg-white/20 rounded-full animate-ping"></div>
+                <div className="absolute top-40 right-20 w-1 h-1 bg-blue-400/30 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-40 left-1/4 w-3 h-3 bg-purple-400/20 rounded-full animate-bounce"></div>
+                <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-yellow-400/20 rounded-full animate-ping"></div>
+              </div>
+            </div>
+            
+            {/* Floating Elements */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-10 text-white/10 text-6xl font-bold animate-float">✦</div>
+              <div className="absolute top-40 right-20 text-white/10 text-4xl font-bold animate-float-delayed">✧</div>
+              <div className="absolute bottom-40 left-1/4 text-white/10 text-5xl font-bold animate-float-slow">✦</div>
+              <div className="absolute top-1/3 right-1/3 text-white/10 text-3xl font-bold animate-float-delayed-slow">✧</div>
             </div>
             
             <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4">
-              <div className={`max-w-4xl mx-auto transition-all duration-1000 ${isAnimating ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}>
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  {heroSlides[currentSlide].title}
-                </h1>
-                <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto leading-relaxed">
+              <div className={`max-w-5xl mx-auto transition-all duration-1000 ${isAnimating ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}>
+                {/* Animated Title with Gradient */}
+                <div className="mb-8">
+                  <h1 className="text-5xl md:text-8xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
+                    {heroSlides[currentSlide].title}
+                  </h1>
+                  {/* Decorative Line */}
+                  <div className="w-32 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full mb-6"></div>
+                </div>
+                
+                {/* Enhanced Subtitle */}
+                <p className="text-xl md:text-3xl mb-12 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light tracking-wide">
                   {heroSlides[currentSlide].subtitle}
                 </p>
                 
-                <div className="flex flex-wrap justify-center gap-4 mb-8">
+                {/* Features with Enhanced Badges */}
+                <div className="flex flex-wrap justify-center gap-4 mb-12">
                   {heroSlides[currentSlide].features.map((feature, index) => (
-                    <Badge key={index} variant="secondary" className="text-lg px-4 py-2 bg-white/20 backdrop-blur-sm border-white/30">
-                      {feature}
-                    </Badge>
+                    <div 
+                      key={index} 
+                      className="group relative"
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-lg px-6 py-3 bg-white/20 backdrop-blur-md border-white/40 hover:bg-white/30 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                      >
+                        <span className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+                          {feature}
+                        </span>
+                      </Badge>
+                      {/* Glow Effect */}
+                      <div className="absolute inset-0 bg-blue-400/20 rounded-lg blur-md -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
                   ))}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300">
-                    <Calendar className="mr-2 h-5 w-5" />
-                    Pesan Sekarang
+                {/* Enhanced CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white px-10 py-5 text-xl rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-pink-500/25 relative overflow-hidden group"
+                  >
+                    <span className="relative z-10 flex items-center gap-3">
+                      <Calendar className="h-6 w-6" />
+                      Pesan Sekarang
+                    </span>
+                    {/* Button Shine Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                   </Button>
-                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg rounded-full backdrop-blur-sm">
-                    <Play className="mr-2 h-5 w-5" />
-                    Lihat Video
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-2 border-white/50 text-white hover:bg-white/10 hover:border-white hover:text-white px-10 py-5 text-xl rounded-full backdrop-blur-md shadow-lg transform hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+                  >
+                    <span className="relative z-10 flex items-center gap-3">
+                      <Play className="h-6 w-6" />
+                      Lihat Video
+                    </span>
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-white/10 transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></div>
                   </Button>
                 </div>
 
-                <div className="mt-12 flex justify-center gap-8 text-center">
+                {/* Enhanced Stats with Animated Numbers */}
+                <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
                   {heroSlides[currentSlide].stats && (
                     <>
-                      <div>
-                        <div className="text-3xl font-bold text-yellow-400">{heroSlides[currentSlide].stats.rating}</div>
-                        <div className="text-sm text-gray-300">Rating</div>
+                      <div className="group transform hover:scale-110 transition-transform duration-300">
+                        <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2 group-hover:text-yellow-300 transition-colors duration-300">
+                          {heroSlides[currentSlide].stats.rating}
+                        </div>
+                        <div className="text-sm text-gray-300 uppercase tracking-wider">Rating</div>
+                        <div className="flex justify-center mt-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400 mx-0.5" />
+                          ))}
+                        </div>
                       </div>
-                      <div>
-                        <div className="text-3xl font-bold text-yellow-400">{heroSlides[currentSlide].stats.reviews}</div>
-                        <div className="text-sm text-gray-300">Reviews</div>
+                      <div className="group transform hover:scale-110 transition-transform duration-300">
+                        <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2 group-hover:text-blue-300 transition-colors duration-300">
+                          {heroSlides[currentSlide].stats.reviews}
+                        </div>
+                        <div className="text-sm text-gray-300 uppercase tracking-wider">Reviews</div>
+                        <div className="w-8 h-0.5 bg-blue-400 mx-auto mt-1 rounded-full"></div>
                       </div>
-                      <div>
-                        <div className="text-3xl font-bold text-yellow-400">{heroSlides[currentSlide].stats.tours}</div>
-                        <div className="text-sm text-gray-300">Tours</div>
+                      <div className="group transform hover:scale-110 transition-transform duration-300">
+                        <div className="text-4xl md:text-5xl font-bold text-purple-400 mb-2 group-hover:text-purple-300 transition-colors duration-300">
+                          {heroSlides[currentSlide].stats.tours}
+                        </div>
+                        <div className="text-sm text-gray-300 uppercase tracking-wider">Tours</div>
+                        <div className="w-8 h-0.5 bg-purple-400 mx-auto mt-1 rounded-full"></div>
                       </div>
                     </>
                   )}
@@ -302,27 +370,44 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Enhanced Navigation Buttons */}
             <button 
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300"
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-md text-white p-4 rounded-full hover:bg-white/30 transition-all duration-300 transform hover:scale-110 shadow-xl group"
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-8 w-8 group-hover:translate-x-[-2px] transition-transform duration-200" />
             </button>
             <button 
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300"
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-md text-white p-4 rounded-full hover:bg-white/30 transition-all duration-300 transform hover:scale-110 shadow-xl group"
             >
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-8 w-8 group-hover:translate-x-[2px] transition-transform duration-200" />
             </button>
 
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            {/* Enhanced Indicators */}
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-3">
               {heroSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-white scale-125' : 'bg-white/50'}`}
-                />
+                  className={`group relative transition-all duration-300 ${currentSlide === index ? 'scale-125' : 'hover:scale-110'}`}
+                >
+                  <div className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentSlide === index 
+                      ? 'bg-white shadow-lg shadow-white/50' 
+                      : 'bg-white/50 hover:bg-white/70'
+                  }`}></div>
+                  {/* Indicator Glow */}
+                  {currentSlide === index && (
+                    <div className="absolute inset-0 bg-white/30 rounded-full animate-ping"></div>
+                  )}
+                </button>
               ))}
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+              <ChevronDown className="h-6 w-6 text-white/60" />
             </div>
           </>
         )}
