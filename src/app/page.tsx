@@ -88,6 +88,7 @@ export default function Home() {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -95,6 +96,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
+      setError(null);
       const [heroRes, packagesRes, testimonialsRes, faqsRes, settingsRes] = await Promise.all([
         fetch('/api/public/hero'),
         fetch('/api/public/packages'),
@@ -102,6 +104,14 @@ export default function Home() {
         fetch('/api/public/faqs'),
         fetch('/api/public/settings')
       ]);
+
+      // Check if any response failed
+      const responses = [heroRes, packagesRes, testimonialsRes, faqsRes, settingsRes];
+      const hasError = responses.some(res => !res.ok);
+      
+      if (hasError) {
+        throw new Error('Some API requests failed');
+      }
 
       const [heroData, packagesData, testimonialsData, faqsData, settingsData] = await Promise.all([
         heroRes.json(),
@@ -111,13 +121,21 @@ export default function Home() {
         settingsRes.json()
       ]);
 
-      setHeroSlides(heroData || []);
-      setTourPackages(packagesData || []);
-      setTestimonials(testimonialsData || []);
-      setFaqs(faqsData || []);
+      // Ensure arrays are properly set
+      setHeroSlides(Array.isArray(heroData) ? heroData : []);
+      setTourPackages(Array.isArray(packagesData) ? packagesData : []);
+      setTestimonials(Array.isArray(testimonialsData) ? testimonialsData : []);
+      setFaqs(Array.isArray(faqsData) ? faqsData : []);
       setSettings(settingsData || null);
     } catch (error) {
       console.error('Error fetching data:', error);
+      setError('Failed to load data. Please try again later.');
+      // Set empty arrays as fallback
+      setHeroSlides([]);
+      setTourPackages([]);
+      setTestimonials([]);
+      setFaqs([]);
+      setSettings(null);
     } finally {
       setLoading(false);
     }
@@ -189,6 +207,23 @@ export default function Home() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Error</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button 
+            onClick={fetchData}
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }

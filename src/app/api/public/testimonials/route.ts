@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 
 export async function GET() {
   try {
-    const testimonials = await prisma.testimonial.findMany({
+    const testimonials = await db.testimonial.findMany({
       where: { isActive: true },
       orderBy: { createdAt: 'desc' }
     });

@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 
 export async function GET() {
   try {
-    const settings = await prisma.siteSettings.findFirst();
+    const settings = await db.siteSettings.findFirst();
     
     if (!settings) {
       return NextResponse.json({ error: 'Settings not found' }, { status: 404 });

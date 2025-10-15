@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { db } from '@/lib/db';
 
 export async function GET() {
   try {
-    const packages = await prisma.tourPackage.findMany({
+    const packages = await db.tourPackage.findMany({
       where: { isActive: true },
       orderBy: { createdAt: 'desc' }
     });
