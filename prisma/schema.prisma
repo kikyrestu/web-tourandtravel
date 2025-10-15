@@ -9,24 +9,156 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model User {
+// Admin Authentication
+model AdminUser {
   id        String   @id @default(cuid())
   email     String   @unique
-  name      String?
+  password  String
+  name      String
+  role      String   @default("admin")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  @@map("admin_users")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// Tour Packages
+model TourPackage {
+  id            String   @id @default(cuid())
+  name          String
+  duration      String
+  price         String
+  originalPrice String?
+  discount      String?
+  rating        Float
+  reviews       Int
+  location      String
+  highlights    String   // JSON array
+  description   String
+  image         String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("tour_packages")
+}
+
+// Hero Slides
+model HeroSlide {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String
+  image       String?
+  videoId     String?
+  features    String   // JSON array
+  stats       String   // JSON array
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("hero_slides")
+}
+
+// Testimonials
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  rating      Int
+  comment     String
+  date        String
+  tour        String
+  detail      String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("testimonials")
+}
+
+// FAQ
+model FAQ {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("faqs")
+}
+
+// Articles/Blog
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  excerpt     String
+  content     String
+  category    String
+  readTime    String
+  image       String?
+  slug        String   @unique
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("articles")
+}
+
+// Gallery
+model Gallery {
+  id          String   @id @default(cuid())
+  title       String?
+  description String?
+  imagePath   String
+  category    String   @default("general")
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("gallery")
+}
+
+// Site Settings
+model SiteSettings {
+  id                String   @id @default(cuid())
+  siteName          String   @default("Nusantara Tour")
+  siteDescription   String
+  siteKeywords      String
+  headerBackground  String?
+  logo              String?
+  favicon           String?
+  contactEmail      String
+  contactPhone      String
+  contactAddress    String
+  socialLinks       String   // JSON object
+  seoMetaTitle      String?
+  seoMetaDescription String?
+  seoMetaKeywords   String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@map("site_settings")
+}
+
+// SEO Meta for individual pages
+model SeoMeta {
+  id          String   @id @default(cuid())
+  pagePath    String   @unique
+  title       String
+  description String
+  keywords    String?
+  ogImage     String?
+  ogTitle     String?
+  ogDescription String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("seo_meta")
 }
