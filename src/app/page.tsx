@@ -78,6 +78,7 @@ export default function Home() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<string>('all');
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [currentPackageIndex, setCurrentPackageIndex] = useState(0);
 
   // Data from backend
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
@@ -167,6 +168,30 @@ export default function Home() {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Package carousel functions
+  const getVisiblePackages = () => {
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      if (width >= 1280) return 3; // xl
+      if (width >= 1024) return 2; // lg
+      return 1; // mobile
+    }
+    return 1;
+  };
+
+  const nextPackage = () => {
+    const maxIndex = Math.max(0, tourPackages.length - getVisiblePackages());
+    if (currentPackageIndex < maxIndex) {
+      setCurrentPackageIndex(currentPackageIndex + 1);
+    }
+  };
+
+  const prevPackage = () => {
+    if (currentPackageIndex > 0) {
+      setCurrentPackageIndex(currentPackageIndex - 1);
     }
   };
 
@@ -560,70 +585,108 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Horizontal Cards Tour Packages */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {tourPackages.map((pkg) => (
-              <Card key={pkg.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="flex">
-                  {/* Left Side - Image */}
-                  <div className="relative w-1/3">
-                    {pkg.image && (
-                      <img
-                        src={pkg.image}
-                        alt={pkg.name}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
-                    {pkg.discount && (
-                      <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                        {pkg.discount} OFF
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Right Side - Content */}
-                  <div className="w-2/3 p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <CardTitle className="text-lg">{pkg.name}</CardTitle>
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                        <span className="text-xs font-semibold">{pkg.rating}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2 text-xs text-gray-600 mb-3">
-                      <Clock className="w-3 h-3" />
-                      <span>{pkg.duration}</span>
-                      <MapPin className="w-3 h-3 ml-1" />
-                      <span>{pkg.location}</span>
-                    </div>
-                    
-                    <p className="text-gray-600 mb-3 text-xs line-clamp-2">{pkg.description}</p>
-                    
-                    <div className="space-y-1 mb-3">
-                      {pkg.highlights?.slice(0, 2).map((highlight, index) => (
-                        <div key={index} className="flex items-center space-x-2">
-                          <div className="w-1 h-1 bg-green-400 rounded-full"></div>
-                          <span className="text-xs text-gray-600">{highlight}</span>
+          {/* Carousel Tour Packages with Arrow Buttons */}
+          <div className="relative">
+            <div className="overflow-hidden">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentPackageIndex * (320 + 24)}px)` }}
+              >
+                {tourPackages.map((pkg) => (
+                  <div key={pkg.id} className="flex-shrink-0 mr-6" style={{ width: '320px' }}>
+                    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full">
+                      <div className="flex">
+                        {/* Left Side - Image */}
+                        <div className="relative w-1/3">
+                          {pkg.image && (
+                            <img
+                              src={pkg.image}
+                              alt={pkg.name}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                          {pkg.discount && (
+                            <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                              {pkg.discount} OFF
+                            </div>
+                          )}
                         </div>
-                      ))}
-                    </div>
+                        
+                        {/* Right Side - Content */}
+                        <div className="w-2/3 p-4">
+                          <div className="flex justify-between items-start mb-2">
+                            <CardTitle className="text-lg">{pkg.name}</CardTitle>
+                            <div className="flex items-center space-x-1">
+                              <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                              <span className="text-xs font-semibold">{pkg.rating}</span>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center space-x-2 text-xs text-gray-600 mb-3">
+                            <Clock className="w-3 h-3" />
+                            <span>{pkg.duration}</span>
+                            <MapPin className="w-3 h-3 ml-1" />
+                            <span>{pkg.location}</span>
+                          </div>
+                          
+                          <p className="text-gray-600 mb-3 text-xs line-clamp-2">{pkg.description}</p>
+                          
+                          <div className="space-y-1 mb-3">
+                            {pkg.highlights?.slice(0, 2).map((highlight, index) => (
+                              <div key={index} className="flex items-center space-x-2">
+                                <div className="w-1 h-1 bg-green-400 rounded-full"></div>
+                                <span className="text-xs text-gray-600">{highlight}</span>
+                              </div>
+                            ))}
+                          </div>
 
-                    <div className="flex items-center justify-between">
-                      <div>
-                        {pkg.originalPrice && (
-                          <span className="text-xs text-gray-500 line-through">{pkg.originalPrice}</span>
-                        )}
-                        <div className="text-lg font-bold text-orange-500">{pkg.price}</div>
+                          <div className="flex items-center justify-between">
+                            <div>
+                              {pkg.originalPrice && (
+                                <span className="text-xs text-gray-500 line-through">{pkg.originalPrice}</span>
+                              )}
+                              <div className="text-lg font-bold text-orange-500">{pkg.price}</div>
+                            </div>
+                            <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-xs">
+                              Pesan
+                            </Button>
+                          </div>
+                        </div>
                       </div>
-                      <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-xs">
-                        Pesan
-                      </Button>
-                    </div>
+                    </Card>
                   </div>
-                </div>
-              </Card>
-            ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Arrow Buttons */}
+            {tourPackages.length > 0 && (
+              <>
+                <button
+                  onClick={prevPackage}
+                  disabled={currentPackageIndex === 0}
+                  className={`absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full shadow-lg ${
+                    currentPackageIndex === 0 
+                      ? 'bg-gray-300 cursor-not-allowed' 
+                      : 'bg-white hover:bg-gray-100'
+                  }`}
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                
+                <button
+                  onClick={nextPackage}
+                  disabled={currentPackageIndex >= tourPackages.length - getVisiblePackages()}
+                  className={`absolute right-0 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full shadow-lg ${
+                    currentPackageIndex >= tourPackages.length - getVisiblePackages()
+                      ? 'bg-gray-300 cursor-not-allowed' 
+                      : 'bg-white hover:bg-gray-100'
+                  }`}
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
           </div>
 
           {tourPackages.length === 0 && (
