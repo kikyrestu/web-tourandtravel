@@ -42,7 +42,8 @@ import {
   Instagram,
   Twitter,
   Youtube,
-  Globe
+  Globe,
+  ArrowRight
 } from "lucide-react";
 
 interface ContentSection {
@@ -71,18 +72,16 @@ interface HeaderContent {
   };
 }
 
-interface HeroContent {
+interface HeroSlide {
+  id: string;
   title: string;
   subtitle: string;
-  description: string;
-  backgroundImage: string;
-  ctaButtons: Array<{ text: string; href: string; style: string; isActive: boolean }>;
-  features: Array<{ text: string; icon: string; isActive: boolean }>;
-  stats: {
-    rating: number;
-    reviews: number;
-    tours: number;
-  };
+  image?: string;
+  videoId?: string;
+  features: string[];
+  stats: Record<string, string>;
+  isActive: boolean;
+  sortOrder: number;
 }
 
 interface PackagesContent {
@@ -163,28 +162,7 @@ const searchParams = useSearchParams();
     }
   });
 
-  const [heroContent, setHeroContent] = useState<HeroContent>({
-    title: 'Jelajahi Keindahan Indonesia',
-    subtitle: 'Temukan keajaiban alam Indonesia yang tak terlupakan',
-    description: 'Bergabunglah dengan ribuan pelanggan yang telah merasakan pengalaman wisata tak terlupakan bersama kami. Dapatkan penawaran terbaik dan pelayanan profesional untuk liburan impian Anda.',
-    backgroundImage: '/bromo-sunrise.jpg',
-    ctaButtons: [
-      { text: 'Jelajahi Sekarang', href: '#packages', style: 'primary', isActive: true },
-      { text: 'Tonton Video', href: '#', style: 'secondary', isActive: true },
-      { text: 'Lihat Testimoni', href: '#testimonials', style: 'outline', isActive: true }
-    ],
-    features: [
-      { text: 'Sunrise Penanjakan', icon: 'sun', isActive: true },
-      { text: 'Lautan Pasir', icon: 'mountain', isActive: true },
-      { text: 'Kawah Bromo', icon: 'map-pin', isActive: true },
-      { text: 'Hutan Pinus', icon: 'trees', isActive: true }
-    ],
-    stats: {
-      rating: 4.8,
-      reviews: 2341,
-      tours: 1567
-    }
-  });
+  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
 
   const [packagesContent, setPackagesContent] = useState<PackagesContent>({
     title: 'Paket Tour Kami',
@@ -250,7 +228,26 @@ const searchParams = useSearchParams();
   useEffect(() => {
     checkAuth();
     fetchContent();
+    fetchHeroSlides();
   }, []);
+
+  const fetchHeroSlides = async () => {
+    try {
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch("/api/admin/hero", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setHeroSlides(data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching hero slides:", error);
+    }
+  };
 
   const checkAuth = () => {
     const token = localStorage.getItem("adminToken");
@@ -273,7 +270,6 @@ const searchParams = useSearchParams();
         const data = await response.json();
         // Update state with fetched data
         if (data.header) setHeaderContent(data.header);
-        if (data.hero) setHeroContent(data.hero);
         if (data.packages) setPackagesContent(data.packages);
         if (data.testimonials) setTestimonialsContent(data.testimonials);
         if (data.footer) setFooterContent(data.footer);
@@ -299,7 +295,6 @@ const searchParams = useSearchParams();
         body: JSON.stringify({
           section: activeSection,
           content: activeSection === 'header' ? headerContent : 
-                   activeSection === 'hero' ? heroContent :
                    activeSection === 'packages' ? packagesContent :
                    activeSection === 'testimonials' ? testimonialsContent :
                    activeSection === 'footer' ? footerContent :
@@ -542,154 +537,124 @@ const searchParams = useSearchParams();
 
   const renderHeroEditor = () => (
     <div className="space-y-6">
-      <div>
-        <Label htmlFor="heroTitle">Hero Title</Label>
-        <Input
-          id="heroTitle"
-          value={heroContent.title}
-          onChange={(e) => setHeroContent({ ...heroContent, title: e.target.value })}
-          placeholder="Enter hero title"
-        />
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Hero Slides Management</h2>
+        <Button 
+          onClick={() => router.push('/admin/hero')}
+          className="flex items-center gap-2"
+        >
+          <Plus className="h-4 w-4" />
+          Add New Slide
+        </Button>
       </div>
-
-      <div>
-        <Label htmlFor="heroSubtitle">Hero Subtitle</Label>
-        <Textarea
-          id="heroSubtitle"
-          value={heroContent.subtitle}
-          onChange={(e) => setHeroContent({ ...heroContent, subtitle: e.target.value })}
-          placeholder="Enter hero subtitle"
-          rows={3}
-        />
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {heroSlides.map((slide, index) => (
+          <Card key={slide.id} className="relative overflow-hidden">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg">Slide {index + 1}</CardTitle>
+                <Badge variant={slide.isActive ? "default" : "secondary"}>
+                  {slide.isActive ? "Active" : "Inactive"}
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {/* Preview Image */}
+              {slide.image && (
+                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                  <img 
+                    src={slide.image} 
+                    alt={slide.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/placeholder.jpg';
+                    }}
+                  />
+                </div>
+              )}
+              
+              {/* Title and Subtitle */}
+              <div>
+                <h3 className="font-semibold text-lg mb-1">{slide.title}</h3>
+                <p className="text-gray-600 text-sm">{slide.subtitle}</p>
+              </div>
+              
+              {/* Features */}
+              {slide.features.length > 0 && (
+                <div>
+                  <p className="text-sm font-medium mb-2">Features:</p>
+                  <div className="flex flex-wrap gap-1">
+                    {slide.features.map((feature, i) => (
+                      <Badge key={i} variant="outline" className="text-xs">
+                        {feature}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Stats */}
+              {Object.keys(slide.stats).length > 0 && (
+                <div>
+                  <p className="text-sm font-medium mb-2">Stats:</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {Object.entries(slide.stats).map(([key, value]) => (
+                      <div key={key} className="bg-gray-50 p-2 rounded text-xs">
+                        <div className="font-medium">{key}</div>
+                        <div className="text-gray-600">{value}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Video Info */}
+              {slide.videoId && (
+                <div className="text-xs text-gray-500">
+                  Video ID: {slide.videoId}
+                </div>
+              )}
+              
+              {/* Action Buttons */}
+              <div className="flex gap-2 pt-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1"
+                  onClick={() => router.push(`/admin/hero?edit=${slide.id}`)}
+                >
+                  <Edit className="h-3 w-3 mr-1" />
+                  Edit
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    if (confirm('Are you sure you want to delete this slide?')) {
+                      // Handle delete
+                    }
+                  }}
+                >
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-
-      <div>
-        <Label htmlFor="heroDescription">Hero Description</Label>
-        <Textarea
-          id="heroDescription"
-          value={heroContent.description}
-          onChange={(e) => setHeroContent({ ...heroContent, description: e.target.value })}
-          placeholder="Enter hero description"
-          rows={4}
-        />
-      </div>
-
-      <div>
-        <Label htmlFor="heroBackground">Background Image URL</Label>
-        <Input
-          id="heroBackground"
-          value={heroContent.backgroundImage}
-          onChange={(e) => setHeroContent({ ...heroContent, backgroundImage: e.target.value })}
-          placeholder="/path/to/image.jpg"
-        />
-      </div>
-
-      <div>
-        <Label>CTA Buttons</Label>
-        <div className="space-y-3 mt-2">
-          {heroContent.ctaButtons.map((button, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <Input
-                value={button.text}
-                onChange={(e) => {
-                  const newButtons = [...heroContent.ctaButtons];
-                  newButtons[index].text = e.target.value;
-                  setHeroContent({ ...heroContent, ctaButtons: newButtons });
-                }}
-                placeholder="Button text"
-              />
-              <Input
-                value={button.href}
-                onChange={(e) => {
-                  const newButtons = [...heroContent.ctaButtons];
-                  newButtons[index].href = e.target.value;
-                  setHeroContent({ ...heroContent, ctaButtons: newButtons });
-                }}
-                placeholder="Href"
-                className="w-32"
-              />
-              <Switch
-                checked={button.isActive}
-                onCheckedChange={(checked) => {
-                  const newButtons = [...heroContent.ctaButtons];
-                  newButtons[index].isActive = checked;
-                  setHeroContent({ ...heroContent, ctaButtons: newButtons });
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <Label>Features</Label>
-        <div className="space-y-3 mt-2">
-          {heroContent.features.map((feature, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <Input
-                value={feature.text}
-                onChange={(e) => {
-                  const newFeatures = [...heroContent.features];
-                  newFeatures[index].text = e.target.value;
-                  setHeroContent({ ...heroContent, features: newFeatures });
-                }}
-                placeholder="Feature text"
-              />
-              <Switch
-                checked={feature.isActive}
-                onCheckedChange={(checked) => {
-                  const newFeatures = [...heroContent.features];
-                  newFeatures[index].isActive = checked;
-                  setHeroContent({ ...heroContent, features: newFeatures });
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <Label>Stats</Label>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-          <div>
-            <Label htmlFor="rating" className="text-sm">Rating</Label>
-            <Input
-              id="rating"
-              type="number"
-              step="0.1"
-              value={heroContent.stats.rating}
-              onChange={(e) => setHeroContent({
-                ...heroContent,
-                stats: { ...heroContent.stats, rating: parseFloat(e.target.value) }
-              })}
-            />
-          </div>
-          <div>
-            <Label htmlFor="reviews" className="text-sm">Reviews</Label>
-            <Input
-              id="reviews"
-              type="number"
-              value={heroContent.stats.reviews}
-              onChange={(e) => setHeroContent({
-                ...heroContent,
-                stats: { ...heroContent.stats, reviews: parseInt(e.target.value) }
-              })}
-            />
-          </div>
-          <div>
-            <Label htmlFor="tours" className="text-sm">Tours</Label>
-            <Input
-              id="tours"
-              type="number"
-              value={heroContent.stats.tours}
-              onChange={(e) => setHeroContent({
-                ...heroContent,
-                stats: { ...heroContent.stats, tours: parseInt(e.target.value) }
-              })}
-            />
-          </div>
-        </div>
-      </div>
+      
+      {heroSlides.length === 0 && (
+        <Card>
+          <CardContent className="p-8 text-center">
+            <p className="text-gray-500 mb-4">No hero slides found</p>
+            <Button onClick={() => router.push('/admin/hero')}>
+              <Plus className="h-4 w-4 mr-2" />
+              Create Your First Slide
+            </Button>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 
