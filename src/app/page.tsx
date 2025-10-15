@@ -586,8 +586,8 @@ export default function Home() {
           </div>
 
           {/* Premium Tour Package Cards */}
-          <div className="relative">
-            <div className="overflow-hidden">
+          <div className="relative px-12 py-8">
+            <div className="overflow-visible">
               <div 
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentPackageIndex * (380 + 32)}px)` }}
