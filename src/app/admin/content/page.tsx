@@ -358,6 +358,7 @@ const searchParams = useSearchParams();
       submenu: [
         { title: "Header", icon: Heading, href: "/admin/content?section=header" },
         { title: "Hero Section", icon: Mountain, href: "/admin/content?section=hero" },
+        { title: "Content Sections", icon: FileText, href: "/admin/content-sections" },
         { title: "Tour Packages", icon: Package, href: "/admin/content?section=packages" },
         { title: "Testimonials", icon: MessageSquare, href: "/admin/content?section=testimonials" },
         { title: "Footer", icon: Layers, href: "/admin/content?section=footer" },
@@ -369,6 +370,12 @@ const searchParams = useSearchParams();
       icon: Package,
       href: "/admin/packages",
       description: "Kelola paket tour",
+    },
+    {
+      title: "Content Sections",
+      icon: FileText,
+      href: "/admin/content-sections",
+      description: "Kelola teks konten website",
     },
     {
       title: "Gallery",
