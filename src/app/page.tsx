@@ -632,6 +632,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Horizontal Divider - After Tour Packages */}
+      <div className="py-8 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center">
+            <div className="h-0.5 bg-gray-300 w-full max-w-2xl"></div>
+          </div>
+        </div>
+      </div>
+
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
