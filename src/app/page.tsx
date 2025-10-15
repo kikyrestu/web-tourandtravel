@@ -590,10 +590,10 @@ export default function Home() {
             <div className="overflow-hidden">
               <div 
                 className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentPackageIndex * (320 + 24)}px)` }}
+                style={{ transform: `translateX(-${currentPackageIndex * (400 + 32)}px)` }}
               >
                 {tourPackages.map((pkg) => (
-                  <div key={pkg.id} className="flex-shrink-0 mr-6" style={{ width: '320px' }}>
+                  <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '400px' }}>
                     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full">
                       <div className="flex">
                         {/* Left Side - Image */}
@@ -613,29 +613,29 @@ export default function Home() {
                         </div>
                         
                         {/* Right Side - Content */}
-                        <div className="w-2/3 p-4">
-                          <div className="flex justify-between items-start mb-2">
-                            <CardTitle className="text-lg">{pkg.name}</CardTitle>
+                        <div className="w-2/3 p-6">
+                          <div className="flex justify-between items-start mb-3">
+                            <CardTitle className="text-xl">{pkg.name}</CardTitle>
                             <div className="flex items-center space-x-1">
-                              <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                              <span className="text-xs font-semibold">{pkg.rating}</span>
+                              <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                              <span className="text-sm font-semibold">{pkg.rating}</span>
                             </div>
                           </div>
                           
-                          <div className="flex items-center space-x-2 text-xs text-gray-600 mb-3">
-                            <Clock className="w-3 h-3" />
+                          <div className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+                            <Clock className="w-4 h-4" />
                             <span>{pkg.duration}</span>
-                            <MapPin className="w-3 h-3 ml-1" />
+                            <MapPin className="w-4 h-4 ml-2" />
                             <span>{pkg.location}</span>
                           </div>
                           
-                          <p className="text-gray-600 mb-3 text-xs line-clamp-2">{pkg.description}</p>
+                          <p className="text-gray-600 mb-4 text-sm line-clamp-3">{pkg.description}</p>
                           
-                          <div className="space-y-1 mb-3">
-                            {pkg.highlights?.slice(0, 2).map((highlight, index) => (
+                          <div className="space-y-2 mb-4">
+                            {pkg.highlights?.slice(0, 3).map((highlight, index) => (
                               <div key={index} className="flex items-center space-x-2">
-                                <div className="w-1 h-1 bg-green-400 rounded-full"></div>
-                                <span className="text-xs text-gray-600">{highlight}</span>
+                                <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                                <span className="text-sm text-gray-600">{highlight}</span>
                               </div>
                             ))}
                           </div>
@@ -643,12 +643,12 @@ export default function Home() {
                           <div className="flex items-center justify-between">
                             <div>
                               {pkg.originalPrice && (
-                                <span className="text-xs text-gray-500 line-through">{pkg.originalPrice}</span>
+                                <span className="text-sm text-gray-500 line-through">{pkg.originalPrice}</span>
                               )}
-                              <div className="text-lg font-bold text-orange-500">{pkg.price}</div>
+                              <div className="text-xl font-bold text-orange-500">{pkg.price}</div>
                             </div>
-                            <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-xs">
-                              Pesan
+                            <Button className="bg-orange-500 hover:bg-orange-600">
+                              Pesan Sekarang
                             </Button>
                           </div>
                         </div>
