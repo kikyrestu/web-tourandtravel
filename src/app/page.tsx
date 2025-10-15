@@ -585,74 +585,86 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Carousel Tour Packages with Arrow Buttons */}
+          {/* Professional Tour Package Cards */}
           <div className="relative">
             <div className="overflow-hidden">
               <div 
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentPackageIndex * (500 + 32)}px)` }}
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentPackageIndex * (350 + 24)}px)` }}
               >
                 {tourPackages.map((pkg) => (
-                  <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '500px' }}>
-                    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full" style={{ minHeight: '220px' }}>
-                      <div className="flex h-full">
-                        {/* Left Side - Image */}
-                        <div className="relative w-1/3">
-                          {pkg.image && (
-                            <img
-                              src={pkg.image}
-                              alt={pkg.name}
-                              className="w-full h-full object-cover"
-                            />
-                          )}
-                          {pkg.discount && (
-                            <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                              {pkg.discount} OFF
-                            </div>
-                          )}
+                  <div key={pkg.id} className="flex-shrink-0 mr-6" style={{ width: '350px' }}>
+                    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 shadow-lg">
+                      {/* Image Section */}
+                      <div className="relative h-48 overflow-hidden">
+                        {pkg.image && (
+                          <img
+                            src={pkg.image}
+                            alt={pkg.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        )}
+                        
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                        
+                        {/* Discount Badge */}
+                        {pkg.discount && (
+                          <div className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                            {pkg.discount} OFF
+                          </div>
+                        )}
+                        
+                        {/* Rating Badge */}
+                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center space-x-1 shadow-lg">
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                          <span className="text-xs font-bold text-gray-800">{pkg.rating}</span>
                         </div>
                         
-                        {/* Right Side - Content */}
-                        <div className="w-2/3 p-6 flex flex-col justify-between h-full">
-                          <div>
-                            <div className="flex justify-between items-start mb-3">
-                              <CardTitle className="text-xl">{pkg.name}</CardTitle>
-                              <div className="flex items-center space-x-1">
-                                <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                                <span className="text-sm font-semibold">{pkg.rating}</span>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-                              <Clock className="w-4 h-4" />
-                              <span>{pkg.duration}</span>
-                              <MapPin className="w-4 h-4 ml-2" />
-                              <span>{pkg.location}</span>
-                            </div>
-                            
-                            <p className="text-gray-600 mb-4 text-sm line-clamp-3">{pkg.description}</p>
-                            
-                            <div className="space-y-2 mb-4">
-                              {pkg.highlights?.slice(0, 3).map((highlight, index) => (
-                                <div key={index} className="flex items-center space-x-2">
-                                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                                  <span className="text-sm text-gray-600">{highlight}</span>
-                                </div>
-                              ))}
-                            </div>
+                        {/* Location Badge */}
+                        <div className="absolute bottom-3 left-3 flex items-center space-x-1 text-white">
+                          <MapPin className="w-4 h-4" />
+                          <span className="text-sm font-medium">{pkg.location}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Content Section */}
+                      <div className="p-5 bg-white">
+                        {/* Title */}
+                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-orange-500 transition-colors">
+                          {pkg.name}
+                        </h3>
+                        
+                        {/* Duration */}
+                        <div className="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                          <Clock className="w-4 h-4" />
+                          <span>{pkg.duration}</span>
+                        </div>
+                        
+                        {/* Highlights */}
+                        <div className="mb-4">
+                          <div className="flex flex-wrap gap-1">
+                            {pkg.highlights?.slice(0, 3).map((highlight, index) => (
+                              <span key={index} className="bg-orange-50 text-orange-600 px-2 py-1 rounded-full text-xs font-medium">
+                                {highlight}
+                              </span>
+                            ))}
                           </div>
-
-                          <div className="flex items-center justify-between">
-                            <div>
-                              {pkg.originalPrice && (
-                                <span className="text-sm text-gray-500 line-through">{pkg.originalPrice}</span>
-                              )}
-                              <div className="text-xl font-bold text-orange-500">{pkg.price}</div>
-                            </div>
-                            <Button className="bg-orange-500 hover:bg-orange-600">
-                              Pesan Sekarang
-                            </Button>
+                        </div>
+                        
+                        {/* Price & CTA */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex flex-col">
+                            {pkg.originalPrice && (
+                              <span className="text-xs text-gray-400 line-through">{pkg.originalPrice}</span>
+                            )}
+                            <span className="text-xl font-bold text-gray-900">{pkg.price}</span>
+                            <span className="text-xs text-gray-500">per orang</span>
                           </div>
+                          
+                          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium transition-all duration-300 hover:shadow-lg hover:scale-105">
+                            Pesan
+                          </Button>
                         </div>
                       </div>
                     </Card>
@@ -661,16 +673,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Arrow Buttons */}
+            {/* Navigation Arrows */}
             {tourPackages.length > 0 && (
               <>
                 <button
                   onClick={prevPackage}
                   disabled={currentPackageIndex === 0}
-                  className={`absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full shadow-lg ${
+                  className={`absolute left-2 top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     currentPackageIndex === 0 
-                      ? 'bg-gray-300 cursor-not-allowed' 
-                      : 'bg-white hover:bg-gray-100'
+                      ? 'bg-gray-300 cursor-not-allowed opacity-50' 
+                      : 'bg-white hover:bg-orange-500 hover:text-white shadow-lg hover:shadow-xl'
                   }`}
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -679,10 +691,10 @@ export default function Home() {
                 <button
                   onClick={nextPackage}
                   disabled={currentPackageIndex >= tourPackages.length - getVisiblePackages()}
-                  className={`absolute right-0 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full shadow-lg ${
+                  className={`absolute right-2 top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                     currentPackageIndex >= tourPackages.length - getVisiblePackages()
-                      ? 'bg-gray-300 cursor-not-allowed' 
-                      : 'bg-white hover:bg-gray-100'
+                      ? 'bg-gray-300 cursor-not-allowed opacity-50' 
+                      : 'bg-white hover:bg-orange-500 hover:text-white shadow-lg hover:shadow-xl'
                   }`}
                 >
                   <ChevronRight className="w-5 h-5" />
