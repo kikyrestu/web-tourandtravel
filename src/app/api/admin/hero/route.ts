@@ -2,22 +2,42 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from "jsonwebtoken";
 import { db } from '@/lib/db';
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET environment variable is not defined");
+}
 
 // GET all hero slides
 export async function GET(request: NextRequest) {
   try {
+    console.log('🔍 [API] GET hero slides called');
+    
     const authHeader = request.headers.get("authorization");
+    console.log('🔍 [API] Auth header:', authHeader ? 'Present' : 'Missing');
+    
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      console.log('🔍 [API] No Bearer token found');
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const token = authHeader.substring(7);
-    jwt.verify(token, JWT_SECRET);
+    console.log('🔍 [API] Token length:', token.length);
+    console.log('🔍 [API] JWT_SECRET:', JWT_SECRET ? 'Found' : 'Missing');
+    
+    try {
+      jwt.verify(token, JWT_SECRET);
+      console.log('🔍 [API] JWT verification successful');
+    } catch (jwtError) {
+      console.log('🔍 [API] JWT verification failed:', jwtError);
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    }
 
     const heroSlides = await db.heroSlide.findMany({
       orderBy: { sortOrder: 'asc' }
     });
+
+    console.log('🔍 [API] Found', heroSlides.length, 'hero slides');
 
     // Parse JSON fields
     const formattedSlides = heroSlides.map(slide => ({
@@ -28,7 +48,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ data: formattedSlides });
   } catch (error) {
-    console.error('Error fetching hero slides:', error);
+    console.error('🔍 [API] Error fetching hero slides:', error);
     return NextResponse.json({ error: 'Failed to fetch hero slides' }, { status: 500 });
   }
 }

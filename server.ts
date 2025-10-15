@@ -3,10 +3,19 @@ import { setupSocket } from '@/lib/socket';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import next from 'next';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 const dev = process.env.NODE_ENV !== 'production';
 const currentPort = 3000;
 const hostname = '127.0.0.1';
+
+console.log('🔍 [SERVER] Environment Variables:');
+console.log('🔍 [SERVER] JWT_SECRET:', process.env.JWT_SECRET ? 'FOUND' : 'NOT FOUND');
+console.log('🔍 [SERVER] DATABASE_URL:', process.env.DATABASE_URL ? 'FOUND' : 'NOT FOUND');
+console.log('🔍 [SERVER] NODE_ENV:', process.env.NODE_ENV || 'development');
 
 // Custom server with Socket.IO integration
 async function createCustomServer() {

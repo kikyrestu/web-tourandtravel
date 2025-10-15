@@ -1,0 +1,321 @@
+🔍 [SERVER] Environment Variables:
+🔍 [SERVER] JWT_SECRET: FOUND
+🔍 [SERVER] DATABASE_URL: FOUND
+🔍 [SERVER] NODE_ENV: development
+> Ready on http://127.0.0.1:3000
+> Socket.IO server running at ws://127.0.0.1:3000/api/socketio
+ ○ Compiling /api/admin/login ...
+ ✓ Compiled /api/admin/login in 2.6s (445 modules)
+prisma:query SELECT `defaultdb`.`admin_users`.`id`, `defaultdb`.`admin_users`.`email`, `defaultdb`.`admin_users`.`password`, `defaultdb`.`admin_users`.`name`, `defaultdb`.`admin_users`.`role`, `defaultdb`.`admin_users`.`createdAt`, `defaultdb`.`admin_users`.`updatedAt` FROM `defaultdb`.`admin_users` WHERE (`defaultdb`.`admin_users`.`email` = ? AND 1=1) LIMIT ? OFFSET ?
+ POST /api/admin/login 200 in 3282ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /_not-found in 5s (901 modules)
+ GET /admin/dashboard 200 in 5339ms
+ GET /_next/static/css/app/layout.css?v=1760530247836 404 in 2545ms
+ ✓ Compiled /api/admin/stats in 239ms (903 modules)
+🔍 [API] Stats endpoint called
+🔍 [API] Auth header: Present
+🔍 [API] Token length: 243
+🔍 [API] Token decoded successfully: { email: 'admin@nusantaratour.com', role: 'admin' }
+🔍 [API] Fetching database counts...
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`tour_packages`.`id` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ?) AS `sub`
+🔍 [API] Database counts fetched: {
+  totalPackages: 5,
+  totalTestimonials: 5,
+  totalFaqs: 4,
+  totalArticles: 0,
+  totalGallery: 0
+}
+ GET /api/admin/stats 200 in 561ms
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`gallery`.`id` FROM `defaultdb`.`gallery` WHERE `defaultdb`.`gallery`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`testimonials`.`id` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`articles`.`id` FROM `defaultdb`.`articles` WHERE `defaultdb`.`articles`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`faqs`.`id` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ?) AS `sub`
+ ○ Compiling / ...
+ ✓ Compiled / in 813ms (977 modules)
+ GET / 200 in 1077ms
+ GET / 200 in 55ms
+ ○ Compiling /admin/content ...
+ ✓ Compiled /admin/content in 674ms (1006 modules)
+ GET /admin/content?section=testimonials 200 in 921ms
+ GET / 200 in 904ms
+ GET /admin/dashboard 200 in 120ms
+ GET / 200 in 48ms
+ ✓ Compiled /favicon.ico in 190ms (591 modules)
+ GET /favicon.ico 200 in 227ms
+🔍 [API] Stats endpoint called
+🔍 [API] Auth header: Present
+🔍 [API] Token length: 243
+🔍 [API] Token decoded successfully: { email: 'admin@nusantaratour.com', role: 'admin' }
+🔍 [API] Fetching database counts...
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`testimonials`.`id` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`tour_packages`.`id` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`articles`.`id` FROM `defaultdb`.`articles` WHERE `defaultdb`.`articles`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`faqs`.`id` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ?) AS `sub`
+🔍 [API] Database counts fetched: {
+  totalPackages: 5,
+  totalTestimonials: 5,
+  totalFaqs: 4,
+  totalArticles: 0,
+  totalGallery: 0
+}
+ GET /api/admin/stats 200 in 140ms
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`gallery`.`id` FROM `defaultdb`.`gallery` WHERE `defaultdb`.`gallery`.`isActive` = ?) AS `sub`
+ GET / 200 in 125ms
+ GET / 200 in 48ms
+ ○ Compiling /api/public/settings ...
+ ✓ Compiled /api/public/settings in 797ms (1015 modules)
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 916ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 920ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 687ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/settings 200 in 690ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 933ms
+ GET /bromo-ijen-package.jpg 404 in 81ms
+ GET /bromo-package.jpg 404 in 47ms
+ GET /admin/content?section=hero 200 in 25ms
+ ✓ Compiled /api/admin/content in 418ms (1017 modules)
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/admin/content 200 in 582ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ ✓ Compiled /api/admin/hero in 283ms (1019 modules)
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE 1=1 ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/admin/hero 200 in 394ms
+ ○ Compiling /admin/content-sections ...
+ ✓ Compiled /admin/content-sections in 1579ms (1172 modules)
+ GET /admin/content-sections 200 in 1657ms
+ ○ Compiling /api/admin/content-sections ...
+ ✓ Compiled /api/admin/content-sections in 1184ms (1174 modules)
+ GET /api/admin/content-sections 401 in 1236ms
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE 1=1 ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/admin/hero 200 in 90ms
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/admin/content 200 in 130ms
+ GET /admin/content?section=testimonials 200 in 43ms
+ GET /admin/dashboard 200 in 26ms
+🔍 [API] Stats endpoint called
+🔍 [API] Auth header: Present
+🔍 [API] Token length: 243
+🔍 [API] Token decoded successfully: { email: 'admin@nusantaratour.com', role: 'admin' }
+🔍 [API] Fetching database counts...
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`articles`.`id` FROM `defaultdb`.`articles` WHERE `defaultdb`.`articles`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`testimonials`.`id` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`faqs`.`id` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`gallery`.`id` FROM `defaultdb`.`gallery` WHERE `defaultdb`.`gallery`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`tour_packages`.`id` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ?) AS `sub`
+🔍 [API] Database counts fetched: {
+  totalPackages: 5,
+  totalTestimonials: 5,
+  totalFaqs: 4,
+  totalArticles: 0,
+  totalGallery: 0
+}
+ GET /api/admin/stats 200 in 133ms
+ GET / 200 in 128ms
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 142ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 149ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 150ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 158ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/settings 200 in 156ms
+ GET /bromo-package.jpg 404 in 104ms
+ GET /bromo-ijen-package.jpg 404 in 101ms
+ GET /admin/content?section=packages 200 in 17ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/admin/content 200 in 249ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE 1=1 ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/admin/hero 200 in 88ms
+ GET / 200 in 52ms
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 110ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 137ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 137ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/settings 200 in 150ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 149ms
+ GET /bromo-package.jpg 404 in 93ms
+ GET /bromo-ijen-package.jpg 404 in 91ms
+ GET / 200 in 49ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 90ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 95ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 95ms
+ GET /api/public/settings 200 in 96ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 47ms
+ GET /bromo-ijen-package.jpg 404 in 85ms
+ GET /bromo-package.jpg 404 in 85ms
+ GET / 200 in 39ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/settings 200 in 63ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 64ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 96ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 96ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 98ms
+ GET /bromo-ijen-package.jpg 404 in 74ms
+ GET /bromo-package.jpg 404 in 75ms
+ GET / 200 in 45ms
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+ GET /api/public/settings 200 in 94ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/testimonials 200 in 127ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 132ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 136ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 48ms
+ GET /bromo-ijen-package.jpg 404 in 78ms
+ GET /bromo-package.jpg 404 in 77ms
+ GET / 200 in 52ms
+ GET /api/public/packages 200 in 54ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/hero 200 in 55ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 56ms
+ GET /api/public/testimonials 200 in 46ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/settings 200 in 83ms
+ GET /bromo-package.jpg 404 in 83ms
+ GET /bromo-ijen-package.jpg 404 in 84ms
+ GET / 200 in 42ms
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 85ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 85ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 90ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 90ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/settings 200 in 47ms
+ GET /bromo-ijen-package.jpg 404 in 77ms
+ GET /bromo-package.jpg 404 in 76ms
+ GET / 200 in 51ms
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 57ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /api/public/settings 200 in 61ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 57ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 51ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 56ms
+ GET /bromo-ijen-package.jpg 404 in 90ms
+ GET /bromo-package.jpg 404 in 87ms
+ GET / 200 in 44ms
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT 1
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+ GET /api/public/packages 200 in 92ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/public/hero 200 in 94ms
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/public/testimonials 200 in 95ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC
+ GET /api/public/faqs 200 in 99ms
+ GET /api/public/settings 200 in 48ms
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+ GET /admin/dashboard 200 in 18ms
+ GET /bromo-ijen-package.jpg 404 in 77ms
+ GET /bromo-package.jpg 404 in 37ms
+🔍 [API] Stats endpoint called
+🔍 [API] Auth header: Present
+🔍 [API] Token length: 243
+🔍 [API] Token decoded successfully: { email: 'admin@nusantaratour.com', role: 'admin' }
+🔍 [API] Fetching database counts...
+prisma:query SELECT 1
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`testimonials`.`id` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`faqs`.`id` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`tour_packages`.`id` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`articles`.`id` FROM `defaultdb`.`articles` WHERE `defaultdb`.`articles`.`isActive` = ?) AS `sub`
+prisma:query SELECT COUNT(*) AS `_count$_all` FROM (SELECT `defaultdb`.`gallery`.`id` FROM `defaultdb`.`gallery` WHERE `defaultdb`.`gallery`.`isActive` = ?) AS `sub`
+🔍 [API] Database counts fetched: {
+  totalPackages: 5,
+  totalTestimonials: 5,
+  totalFaqs: 4,
+  totalArticles: 0,
+  totalGallery: 0
+}
+ GET /api/admin/stats 200 in 127ms
+ GET /admin/content?section=packages 200 in 16ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE `defaultdb`.`hero_slides`.`isActive` = ? ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+prisma:query SELECT `defaultdb`.`tour_packages`.`id`, `defaultdb`.`tour_packages`.`name`, `defaultdb`.`tour_packages`.`duration`, `defaultdb`.`tour_packages`.`price`, `defaultdb`.`tour_packages`.`originalPrice`, `defaultdb`.`tour_packages`.`discount`, `defaultdb`.`tour_packages`.`rating`, `defaultdb`.`tour_packages`.`reviews`, `defaultdb`.`tour_packages`.`location`, `defaultdb`.`tour_packages`.`highlights`, `defaultdb`.`tour_packages`.`description`, `defaultdb`.`tour_packages`.`image`, `defaultdb`.`tour_packages`.`isActive`, `defaultdb`.`tour_packages`.`createdAt`, `defaultdb`.`tour_packages`.`updatedAt` FROM `defaultdb`.`tour_packages` WHERE `defaultdb`.`tour_packages`.`isActive` = ? ORDER BY `defaultdb`.`tour_packages`.`createdAt` DESC
+prisma:query SELECT `defaultdb`.`site_settings`.`id`, `defaultdb`.`site_settings`.`siteName`, `defaultdb`.`site_settings`.`siteDescription`, `defaultdb`.`site_settings`.`siteKeywords`, `defaultdb`.`site_settings`.`headerBackground`, `defaultdb`.`site_settings`.`logo`, `defaultdb`.`site_settings`.`favicon`, `defaultdb`.`site_settings`.`contactEmail`, `defaultdb`.`site_settings`.`contactPhone`, `defaultdb`.`site_settings`.`contactAddress`, `defaultdb`.`site_settings`.`socialLinks`, `defaultdb`.`site_settings`.`seoMetaTitle`, `defaultdb`.`site_settings`.`seoMetaDescription`, `defaultdb`.`site_settings`.`seoMetaKeywords`, `defaultdb`.`site_settings`.`createdAt`, `defaultdb`.`site_settings`.`updatedAt` FROM `defaultdb`.`site_settings` WHERE 1=1 LIMIT ? OFFSET ?
+prisma:query SELECT `defaultdb`.`testimonials`.`id`, `defaultdb`.`testimonials`.`name`, `defaultdb`.`testimonials`.`rating`, `defaultdb`.`testimonials`.`comment`, `defaultdb`.`testimonials`.`date`, `defaultdb`.`testimonials`.`tour`, `defaultdb`.`testimonials`.`detail`, `defaultdb`.`testimonials`.`isActive`, `defaultdb`.`testimonials`.`createdAt`, `defaultdb`.`testimonials`.`updatedAt` FROM `defaultdb`.`testimonials` WHERE `defaultdb`.`testimonials`.`isActive` = ? ORDER BY `defaultdb`.`testimonials`.`createdAt` DESC
+ GET /api/admin/hero 200 in 88ms
+prisma:query SELECT `defaultdb`.`hero_slides`.`id`, `defaultdb`.`hero_slides`.`title`, `defaultdb`.`hero_slides`.`subtitle`, `defaultdb`.`hero_slides`.`image`, `defaultdb`.`hero_slides`.`videoId`, `defaultdb`.`hero_slides`.`features`, `defaultdb`.`hero_slides`.`stats`, `defaultdb`.`hero_slides`.`isActive`, `defaultdb`.`hero_slides`.`sortOrder`, `defaultdb`.`hero_slides`.`createdAt`, `defaultdb`.`hero_slides`.`updatedAt` FROM `defaultdb`.`hero_slides` WHERE 1=1 ORDER BY `defaultdb`.`hero_slides`.`sortOrder` ASC
+ GET /api/admin/content 200 in 247ms
+prisma:query SELECT `defaultdb`.`faqs`.`id`, `defaultdb`.`faqs`.`question`, `defaultdb`.`faqs`.`answer`, `defaultdb`.`faqs`.`isActive`, `defaultdb`.`faqs`.`sortOrder`, `defaultdb`.`faqs`.`createdAt`, `defaultdb`.`faqs`.`updatedAt` FROM `defaultdb`.`faqs` WHERE `defaultdb`.`faqs`.`isActive` = ? ORDER BY `defaultdb`.`faqs`.`sortOrder` ASC

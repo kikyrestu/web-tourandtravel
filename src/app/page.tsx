@@ -175,7 +175,8 @@ export default function Home() {
   const getVisiblePackages = () => {
     if (typeof window !== 'undefined') {
       const width = window.innerWidth;
-      if (width >= 1280) return 3; // xl
+      if (width >= 1536) return 3; // 2xl
+      if (width >= 1280) return 2; // xl
       if (width >= 1024) return 2; // lg
       return 1; // mobile
     }
@@ -244,6 +245,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      {/* Custom CSS for hiding scrollbar */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+      
       {/* Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
         <div 
@@ -576,85 +588,120 @@ export default function Home() {
       </div>
 
       {/* Tour Packages Section */}
-      <section id="packages" className="py-20 bg-white">
+      <section id="packages" className="py-20 bg-gradient-to-br from-orange-50 to-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Paket Tour Kami</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-6">
+              <Mountain className="w-8 h-8 text-orange-600" />
+            </div>
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">Paket Tour Kami</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Pilih paket tour terbaik untuk pengalaman wisata tak terlupakan bersama kami
             </p>
           </div>
 
-          {/* Premium Tour Package Cards */}
-          <div className="relative px-12 py-8">
-            <div className="overflow-visible">
-              <div 
-                className="flex transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentPackageIndex * (380 + 32)}px)` }}
-              >
-                {tourPackages.map((pkg) => (
-                  <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '380px' }}>
-                    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 border-0 shadow-xl bg-white rounded-2xl">
-                      {/* Image Section */}
-                      <div className="relative h-40 overflow-hidden">
-                        {pkg.image && (
+          {/* Enhanced Tour Package Cards */}
+          <div className="relative px-8 lg:px-16 py-16">
+            {/* Main container with extra space for shadows */}
+            <div className="relative">
+              {/* Scrollable container that preserves shadows */}
+              <div className="overflow-x-auto scrollbar-hide" style={{ 
+                margin: '0 -3rem',
+                padding: '0 3rem'
+              }}>
+                <div 
+                  className="flex transition-transform duration-500 ease-out gap-8"
+                  style={{ transform: `translateX(-${currentPackageIndex * (420 + 32)}px)` }}
+                >
+                  {tourPackages.map((pkg) => (
+                    <div key={pkg.id} className="flex-shrink-0" style={{ width: '420px' }}>
+                      <Card className="group preserve-shadow card-shadow-enhanced overflow-visible border-0 bg-white rounded-3xl h-full">
+                      {/* Enhanced Image Section */}
+                      <div className="relative h-56 overflow-hidden">
+                        {pkg.image ? (
                           <img
                             src={pkg.image}
                             alt={pkg.name}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                           />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                            <Mountain className="w-16 h-16 text-white/80" />
+                          </div>
                         )}
                         
-                        {/* Simple Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        {/* Enhanced Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                         
                         {/* Top Badges */}
-                        <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
+                        <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
                           {pkg.discount && (
-                            <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                               {pkg.discount} OFF
                             </div>
                           )}
-                          <div className="bg-white/90 px-2 py-1 rounded-full flex items-center space-x-1">
-                            <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                            <span className="text-xs font-bold text-gray-800">{pkg.rating}</span>
+                          <div className="bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center space-x-2 shadow-lg">
+                            <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                            <span className="text-sm font-bold text-gray-800">{pkg.rating}</span>
                           </div>
                         </div>
                         
                         {/* Bottom Location */}
-                        <div className="absolute bottom-3 left-3">
-                          <div className="flex items-center space-x-1 text-white">
-                            <MapPin className="w-3 h-3" />
-                            <span className="text-xs font-medium">{pkg.location}</span>
+                        <div className="absolute bottom-4 left-4">
+                          <div className="flex items-center space-x-2 text-white">
+                            <MapPin className="w-4 h-4" />
+                            <span className="text-sm font-medium">{pkg.location}</span>
                           </div>
                         </div>
                       </div>
                       
-                      {/* Content Section */}
-                      <div className="p-3">
+                      {/* Enhanced Content Section */}
+                      <div className="p-6">
                         {/* Title */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-orange-600 transition-colors">
+                        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-orange-600 transition-colors">
                           {pkg.name}
                         </h3>
                         
                         {/* Duration */}
-                        <div className="flex items-center space-x-1 text-sm text-gray-500 mb-3">
-                          <Clock className="w-3 h-3" />
-                          <span>{pkg.duration}</span>
+                        <div className="flex items-center space-x-2 text-gray-500 mb-4">
+                          <Clock className="w-4 h-4" />
+                          <span className="text-sm font-medium">{pkg.duration}</span>
                         </div>
                         
-                        {/* Price & CTA */}
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="flex items-baseline space-x-1">
-                              <span className="text-xl font-bold text-orange-600">
-                                {pkg.price}
-                              </span>
-                              <span className="text-xs text-gray-500">/orang</span>
+                        {/* Highlights */}
+                        {pkg.highlights && pkg.highlights.length > 0 && (
+                          <div className="mb-4">
+                            <div className="flex flex-wrap gap-2">
+                              {pkg.highlights.slice(0, 3).map((highlight, index) => (
+                                <span key={index} className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full">
+                                  {highlight}
+                                </span>
+                              ))}
                             </div>
                           </div>
+                        )}
+                        
+                        {/* Price & CTA */}
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                          <div>
+                            <div className="flex items-baseline space-x-1">
+                              <span className="text-2xl font-bold text-orange-600">
+                                {pkg.price}
+                              </span>
+                              <span className="text-sm text-gray-500">/orang</span>
+                            </div>
+                            {pkg.originalPrice && (
+                              <div className="flex items-center space-x-1 mt-1">
+                                <span className="text-sm text-gray-400 line-through">{pkg.originalPrice}</span>
+                                <span className="text-xs text-green-600 font-medium">
+                                  {Math.round((1 - (parseFloat(pkg.price.replace(/[^0-9]/g, '')) / parseFloat(pkg.originalPrice.replace(/[^0-9]/g, '')))) * 100)}% OFF
+                                </span>
+                              </div>
+                            )}
+                          </div>
                           
-                          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300">
+                          <Button className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
                             Pesan
                           </Button>
                         </div>
@@ -665,40 +712,44 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Premium Navigation Arrows */}
+            {/* Enhanced Navigation Arrows - Outside everything */}
             {tourPackages.length > 0 && (
               <>
                 <button
                   onClick={prevPackage}
                   disabled={currentPackageIndex === 0}
-                  className={`absolute left-4 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${
+                  className={`absolute left-2 top-1/2 transform -translate-y-1/2 z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 ${
                     currentPackageIndex === 0 
                       ? 'bg-gray-200/50 cursor-not-allowed opacity-40' 
                       : 'bg-white/95 hover:bg-gradient-to-r hover:from-orange-500 hover:to-amber-500 hover:text-white shadow-2xl hover:shadow-orange-200/50 backdrop-blur-md'
                   }`}
                 >
-                  <ChevronLeft className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
+                  <ChevronLeft className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" />
                 </button>
                 
                 <button
                   onClick={nextPackage}
                   disabled={currentPackageIndex >= tourPackages.length - getVisiblePackages()}
-                  className={`absolute right-4 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${
+                  className={`absolute right-2 top-1/2 transform -translate-y-1/2 z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 ${
                     currentPackageIndex >= tourPackages.length - getVisiblePackages()
                       ? 'bg-gray-200/50 cursor-not-allowed opacity-40' 
                       : 'bg-white/95 hover:bg-gradient-to-r hover:from-orange-500 hover:to-amber-500 hover:text-white shadow-2xl hover:shadow-orange-200/50 backdrop-blur-md'
                   }`}
                 >
-                  <ChevronRight className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
+                  <ChevronRight className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" />
                 </button>
               </>
             )}
           </div>
 
+          {/* Empty State */}
           {tourPackages.length === 0 && (
-            <div className="text-center py-12">
-              <Mountain className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-500">Belum ada paket tour tersedia</p>
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
+                <Mountain className="w-10 h-10 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">Belum ada paket tour tersedia</h3>
+              <p className="text-gray-500">Silakan kembali lagi nanti untuk melihat paket tour terbaru kami</p>
             </div>
           )}
         </div>

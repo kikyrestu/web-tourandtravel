@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from "jsonwebtoken";
 import { db } from '@/lib/db';
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET environment variable is not defined");
+}
 
 // GET single hero slide
 export async function GET(
@@ -100,21 +104,36 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    console.log('🔍 [API] DELETE hero slide called for ID:', params.id);
+    
     const authHeader = request.headers.get("authorization");
+    console.log('🔍 [API] Auth header:', authHeader ? 'Present' : 'Missing');
+    
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      console.log('🔍 [API] No Bearer token found');
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const token = authHeader.substring(7);
-    jwt.verify(token, JWT_SECRET);
+    console.log('🔍 [API] Token length:', token.length);
+    console.log('🔍 [API] JWT_SECRET:', JWT_SECRET ? 'Found' : 'Missing');
+    
+    try {
+      jwt.verify(token, JWT_SECRET);
+      console.log('🔍 [API] JWT verification successful');
+    } catch (jwtError) {
+      console.log('🔍 [API] JWT verification failed:', jwtError);
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    }
 
     await db.heroSlide.delete({
       where: { id: params.id }
     });
 
+    console.log('🔍 [API] Hero slide deleted successfully');
     return NextResponse.json({ message: 'Hero slide deleted successfully' });
   } catch (error) {
-    console.error('Error deleting hero slide:', error);
+    console.error('🔍 [API] Error deleting hero slide:', error);
     return NextResponse.json({ error: 'Failed to delete hero slide' }, { status: 500 });
   }
 }

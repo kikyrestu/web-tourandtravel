@@ -448,3 +448,39 @@
 .animate-particle-float {
   animation: particle-float 6s ease-in-out infinite;
 }
+
+/* Enhanced Shadow Support */
+.shadow-3xl {
+  box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.shadow-4xl {
+  box-shadow: 0 50px 80px -20px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Prevent Shadow Clipping */
+.preserve-shadow {
+  overflow: visible !important;
+}
+
+.shadow-container {
+  overflow: visible !important;
+  padding: 1rem !important;
+}
+
+/* Enhanced Card Shadows */
+.card-shadow-enhanced {
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 20px 40px -10px rgba(0, 0, 0, 0.15),
+    0 30px 60px -15px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.card-shadow-enhanced:hover {
+  box-shadow: 
+    0 15px 35px -5px rgba(0, 0, 0, 0.15),
+    0 30px 50px -10px rgba(0, 0, 0, 0.2),
+    0 40px 80px -20px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-5px) !important;
+}
