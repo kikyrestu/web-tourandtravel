@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import jwt from "jsonwebtoken";
 import { db } from '@/lib/db';
-import { verifyToken } from '@/lib/auth';
+
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 // GET single hero slide
 export async function GET(
@@ -8,10 +10,13 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const authResult = await verifyToken(request);
-    if (!authResult.success) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const token = authHeader.substring(7);
+    jwt.verify(token, JWT_SECRET);
 
     const heroSlide = await db.heroSlide.findUnique({
       where: { id: params.id }
@@ -41,10 +46,13 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const authResult = await verifyToken(request);
-    if (!authResult.success) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const token = authHeader.substring(7);
+    jwt.verify(token, JWT_SECRET);
 
     const body = await request.json();
     const {
@@ -92,10 +100,13 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const authResult = await verifyToken(request);
-    if (!authResult.success) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const token = authHeader.substring(7);
+    jwt.verify(token, JWT_SECRET);
 
     await db.heroSlide.delete({
       where: { id: params.id }

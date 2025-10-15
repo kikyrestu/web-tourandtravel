@@ -1,14 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
+import jwt from "jsonwebtoken";
 import { db } from '@/lib/db';
-import { verifyToken } from '@/lib/auth';
+
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 // GET all hero slides
 export async function GET(request: NextRequest) {
   try {
-    const authResult = await verifyToken(request);
-    if (!authResult.success) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const token = authHeader.substring(7);
+    jwt.verify(token, JWT_SECRET);
 
     const heroSlides = await db.heroSlide.findMany({
       orderBy: { sortOrder: 'asc' }
@@ -31,10 +36,13 @@ export async function GET(request: NextRequest) {
 // POST create new hero slide
 export async function POST(request: NextRequest) {
   try {
-    const authResult = await verifyToken(request);
-    if (!authResult.success) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const token = authHeader.substring(7);
+    jwt.verify(token, JWT_SECRET);
 
     const body = await request.json();
     const {
