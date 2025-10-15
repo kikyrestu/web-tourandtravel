@@ -594,8 +594,8 @@ export default function Home() {
               >
                 {tourPackages.map((pkg) => (
                   <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '500px' }}>
-                    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full">
-                      <div className="flex">
+                    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full" style={{ minHeight: '280px' }}>
+                      <div className="flex h-full">
                         {/* Left Side - Image */}
                         <div className="relative w-1/3">
                           {pkg.image && (
@@ -613,31 +613,33 @@ export default function Home() {
                         </div>
                         
                         {/* Right Side - Content */}
-                        <div className="w-2/3 p-6">
-                          <div className="flex justify-between items-start mb-3">
-                            <CardTitle className="text-xl">{pkg.name}</CardTitle>
-                            <div className="flex items-center space-x-1">
-                              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                              <span className="text-sm font-semibold">{pkg.rating}</span>
-                            </div>
-                          </div>
-                          
-                          <div className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
-                            <Clock className="w-4 h-4" />
-                            <span>{pkg.duration}</span>
-                            <MapPin className="w-4 h-4 ml-2" />
-                            <span>{pkg.location}</span>
-                          </div>
-                          
-                          <p className="text-gray-600 mb-4 text-sm line-clamp-3">{pkg.description}</p>
-                          
-                          <div className="space-y-2 mb-4">
-                            {pkg.highlights?.slice(0, 3).map((highlight, index) => (
-                              <div key={index} className="flex items-center space-x-2">
-                                <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                                <span className="text-sm text-gray-600">{highlight}</span>
+                        <div className="w-2/3 p-6 flex flex-col justify-between h-full">
+                          <div>
+                            <div className="flex justify-between items-start mb-3">
+                              <CardTitle className="text-xl">{pkg.name}</CardTitle>
+                              <div className="flex items-center space-x-1">
+                                <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                                <span className="text-sm font-semibold">{pkg.rating}</span>
                               </div>
-                            ))}
+                            </div>
+                            
+                            <div className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
+                              <Clock className="w-4 h-4" />
+                              <span>{pkg.duration}</span>
+                              <MapPin className="w-4 h-4 ml-2" />
+                              <span>{pkg.location}</span>
+                            </div>
+                            
+                            <p className="text-gray-600 mb-4 text-sm line-clamp-3">{pkg.description}</p>
+                            
+                            <div className="space-y-2 mb-4">
+                              {pkg.highlights?.slice(0, 3).map((highlight, index) => (
+                                <div key={index} className="flex items-center space-x-2">
+                                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                                  <span className="text-sm text-gray-600">{highlight}</span>
+                                </div>
+                              ))}
+                            </div>
                           </div>
 
                           <div className="flex items-center justify-between">
