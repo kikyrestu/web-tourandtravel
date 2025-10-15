@@ -5,15 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Plus, Edit, Trash2, Save, X, MoveUp, MoveDown, FileText } from 'lucide-react';
 import { toast } from 'sonner';
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Placeholder from '@tiptap/extension-placeholder';
+import { Editor } from '@tinymce/tinymce-react';
 
 interface ContentSection {
   id: string;
@@ -39,31 +36,9 @@ export default function ContentSectionsPage() {
   const [position, setPosition] = useState(0);
   const [isActive, setIsActive] = useState(true);
 
-  // Rich text editor
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Placeholder.configure({
-        placeholder: 'Start writing your content here...',
-      }),
-    ],
-    content: '',
-    onUpdate: ({ editor }) => {
-      setContent(editor.getHTML());
-    },
-  });
-
   useEffect(() => {
     fetchSections();
   }, []);
-
-  useEffect(() => {
-    if (editor && editingSection) {
-      editor.commands.setContent(editingSection.content);
-    } else if (editor) {
-      editor.commands.setContent('');
-    }
-  }, [editor, editingSection]);
 
   const fetchSections = async () => {
     try {
@@ -104,13 +79,15 @@ export default function ContentSectionsPage() {
   const handleCancel = () => {
     setEditingSection(null);
     setIsCreating(false);
-    if (editor) {
-      editor.commands.setContent('');
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!content.trim()) {
+      toast.error('Content cannot be empty');
+      return;
+    }
     
     const payload = {
       title,
@@ -265,16 +242,29 @@ export default function ContentSectionsPage() {
 
               <div>
                 <Label htmlFor="content">Content</Label>
-                <div className="border rounded-md min-h-[200px]">
-                  {editor && (
-                    <EditorContent 
-                      editor={editor} 
-                      className="prose prose-sm max-w-none p-4 focus:outline-none"
-                    />
-                  )}
+                <div className="border rounded-md overflow-hidden">
+                  <Editor
+                    apiKey="no-api-key" // For development, you can get a free API key from TinyMCE
+                    init={{
+                      height: 400,
+                      menubar: true,
+                      plugins: [
+                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                      ],
+                      toolbar: 'undo redo | blocks | ' +
+                        'bold italic forecolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    }}
+                    value={content}
+                    onEditorChange={(newContent) => setContent(newContent)}
+                  />
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
-                  Use the toolbar above for formatting (bold, italic, lists, etc.)
+                  Use the toolbar above for formatting. You can add tables, links, images, and more.
                 </p>
               </div>
 
