@@ -20,7 +20,12 @@ import {
   Plus,
   Edit,
   Trash2,
-  Eye
+  Eye,
+  FileEdit,
+  Header,
+  Mountain,
+  Layers,
+  Phone
 } from "lucide-react";
 
 interface DashboardStats {
@@ -87,6 +92,20 @@ export default function AdminDashboard() {
       description: "Overview dan statistik",
     },
     {
+      title: "Edit Konten",
+      icon: FileEdit,
+      href: "/admin/content",
+      description: "Edit konten website",
+      submenu: [
+        { title: "Header", icon: Header, href: "/admin/content?section=header" },
+        { title: "Hero Section", icon: Mountain, href: "/admin/content?section=hero" },
+        { title: "Tour Packages", icon: Package, href: "/admin/content?section=packages" },
+        { title: "Testimonials", icon: MessageSquare, href: "/admin/content?section=testimonials" },
+        { title: "Footer", icon: Layers, href: "/admin/content?section=footer" },
+        { title: "Contact Info", icon: Phone, href: "/admin/content?section=contact" },
+      ]
+    },
+    {
       title: "Tour Packages",
       icon: Package,
       href: "/admin/packages",
@@ -109,12 +128,6 @@ export default function AdminDashboard() {
       icon: HelpCircle,
       href: "/admin/faqs",
       description: "Kelola pertanyaan umum",
-    },
-    {
-      title: "Artikel",
-      icon: FileText,
-      href: "/admin/articles",
-      description: "Kelola artikel blog",
     },
     {
       title: "Pengaturan",
@@ -194,18 +207,35 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent className="space-y-2">
                 {menuItems.map((item) => (
-                  <Button
-                    key={item.title}
-                    variant="ghost"
-                    className="w-full justify-start"
-                    onClick={() => router.push(item.href)}
-                  >
-                    <item.icon className="h-4 w-4 mr-3" />
-                    <div className="text-left">
-                      <div className="font-medium">{item.title}</div>
-                      <div className="text-xs text-gray-500">{item.description}</div>
-                    </div>
-                  </Button>
+                  <div key={item.title}>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start"
+                      onClick={() => router.push(item.href)}
+                    >
+                      <item.icon className="h-4 w-4 mr-3" />
+                      <div className="text-left">
+                        <div className="font-medium">{item.title}</div>
+                        <div className="text-xs text-gray-500">{item.description}</div>
+                      </div>
+                    </Button>
+                    {item.submenu && (
+                      <div className="ml-6 mt-1 space-y-1">
+                        {item.submenu.map((subItem) => (
+                          <Button
+                            key={subItem.title}
+                            variant="ghost"
+                            size="sm"
+                            className="w-full justify-start text-xs"
+                            onClick={() => router.push(subItem.href)}
+                          >
+                            <subItem.icon className="h-3 w-3 mr-2" />
+                            {subItem.title}
+                          </Button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </CardContent>
             </Card>
@@ -250,6 +280,14 @@ export default function AdminDashboard() {
                   <Button
                     variant="outline"
                     className="h-20 flex-col"
+                    onClick={() => router.push("/admin/content")}
+                  >
+                    <FileEdit className="h-6 w-6 mb-2" />
+                    <span>Edit Konten</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="h-20 flex-col"
                     onClick={() => router.push("/admin/packages")}
                   >
                     <Plus className="h-6 w-6 mb-2" />
@@ -262,14 +300,6 @@ export default function AdminDashboard() {
                   >
                     <ImageIcon className="h-6 w-6 mb-2" />
                     <span>Upload Gambar</span>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="h-20 flex-col"
-                    onClick={() => router.push("/admin/articles")}
-                  >
-                    <FileText className="h-6 w-6 mb-2" />
-                    <span>Tulis Artikel</span>
                   </Button>
                   <Button
                     variant="outline"
