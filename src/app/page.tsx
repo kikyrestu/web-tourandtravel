@@ -594,7 +594,7 @@ export default function Home() {
               >
                 {tourPackages.map((pkg) => (
                   <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '500px' }}>
-                    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full" style={{ minHeight: '280px' }}>
+                    <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full" style={{ minHeight: '220px' }}>
                       <div className="flex h-full">
                         {/* Left Side - Image */}
                         <div className="relative w-1/3">
