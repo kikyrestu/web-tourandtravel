@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import { 
   Plus, 
   Edit, 
@@ -28,7 +30,10 @@ import {
   DollarSign,
   Calendar,
   X,
-  PlusCircle
+  PlusCircle,
+  CheckCircle,
+  AlertCircle,
+  Info
 } from "lucide-react";
 
 interface TourPackage {
@@ -51,6 +56,7 @@ interface TourPackage {
 
 export default function AdminPackages() {
   const router = useRouter();
+  const { toast } = useToast();
   const [packages, setPackages] = useState<TourPackage[]>([]);
   const [filteredPackages, setFilteredPackages] = useState<TourPackage[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -123,6 +129,47 @@ export default function AdminPackages() {
   };
 
   const handleCreatePackage = async () => {
+    // Validation
+    if (!formData.name.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Nama paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
+    if (!formData.duration.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Durasi paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
+    if (!formData.price.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Harga paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
+    if (!formData.location.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Lokasi paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch("/api/admin/packages", {
@@ -137,18 +184,79 @@ export default function AdminPackages() {
         }),
       });
 
+      const result = await response.json();
+
       if (response.ok) {
         await fetchPackages();
         setIsDialogOpen(false);
         resetForm();
+        
+        toast({
+          title: "Berhasil!",
+          description: `Paket tour "${formData.name}" berhasil ditambahkan`,
+          icon: <CheckCircle className="h-4 w-4 text-green-500" />,
+        });
+      } else {
+        toast({
+          title: "Gagal Menambah Paket",
+          description: result.message || "Terjadi kesalahan saat menambah paket",
+          variant: "destructive",
+          icon: <AlertCircle className="h-4 w-4" />,
+        });
       }
     } catch (error) {
-      console.error("Error creating package:", error);
+      toast({
+        title: "Error",
+        description: "Gagal terhubung ke server. Silakan coba lagi",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
     }
   };
 
   const handleUpdatePackage = async () => {
     if (!editingPackage) return;
+
+    // Validation
+    if (!formData.name.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Nama paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
+    if (!formData.duration.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Durasi paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
+    if (!formData.price.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Harga paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
+    if (!formData.location.trim()) {
+      toast({
+        title: "Validasi Gagal",
+        description: "Lokasi paket tidak boleh kosong",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
 
     try {
       const token = localStorage.getItem("adminToken");
@@ -164,18 +272,42 @@ export default function AdminPackages() {
         }),
       });
 
+      const result = await response.json();
+
       if (response.ok) {
         await fetchPackages();
         setIsDialogOpen(false);
         resetForm();
+        
+        toast({
+          title: "Berhasil!",
+          description: `Paket tour "${formData.name}" berhasil diperbarui`,
+          icon: <CheckCircle className="h-4 w-4 text-green-500" />,
+        });
+      } else {
+        toast({
+          title: "Gagal Update Paket",
+          description: result.message || "Terjadi kesalahan saat memperbarui paket",
+          variant: "destructive",
+          icon: <AlertCircle className="h-4 w-4" />,
+        });
       }
     } catch (error) {
-      console.error("Error updating package:", error);
+      toast({
+        title: "Error",
+        description: "Gagal terhubung ke server. Silakan coba lagi",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
     }
   };
 
   const handleDeletePackage = async (id: string) => {
-    if (!confirm("Apakah Anda yakin ingin menghapus paket ini?")) return;
+    const pkg = packages.find(p => p.id === id);
+    if (!pkg) return;
+
+    // Custom confirmation dialog
+    if (!confirm(`Apakah Anda yakin ingin menghapus paket "${pkg.name}"?`)) return;
 
     try {
       const token = localStorage.getItem("adminToken");
@@ -186,11 +318,31 @@ export default function AdminPackages() {
         },
       });
 
+      const result = await response.json();
+
       if (response.ok) {
         await fetchPackages();
+        
+        toast({
+          title: "Berhasil Dihapus!",
+          description: `Paket tour "${pkg.name}" berhasil dihapus`,
+          icon: <CheckCircle className="h-4 w-4 text-green-500" />,
+        });
+      } else {
+        toast({
+          title: "Gagal Hapus Paket",
+          description: result.message || "Terjadi kesalahan saat menghapus paket",
+          variant: "destructive",
+          icon: <AlertCircle className="h-4 w-4" />,
+        });
       }
     } catch (error) {
-      console.error("Error deleting package:", error);
+      toast({
+        title: "Error",
+        description: "Gagal terhubung ke server. Silakan coba lagi",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
     }
   };
 
@@ -238,19 +390,50 @@ export default function AdminPackages() {
   };
 
   const addHighlight = () => {
-    if (newHighlight.trim() && !formData.highlights.includes(newHighlight.trim())) {
-      setFormData({
-        ...formData,
-        highlights: [...formData.highlights, newHighlight.trim()]
+    if (!newHighlight.trim()) {
+      toast({
+        title: "Highlight Kosong",
+        description: "Silakan masukkan highlight terlebih dahulu",
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
       });
-      setNewHighlight("");
+      return;
     }
+
+    if (formData.highlights.includes(newHighlight.trim())) {
+      toast({
+        title: "Highlight Sudah Ada",
+        description: `"${newHighlight.trim()}" sudah ada dalam daftar`,
+        variant: "destructive",
+        icon: <AlertCircle className="h-4 w-4" />,
+      });
+      return;
+    }
+
+    setFormData({
+      ...formData,
+      highlights: [...formData.highlights, newHighlight.trim()]
+    });
+    setNewHighlight("");
+    
+    toast({
+      title: "Highlight Ditambahkan",
+      description: `"${newHighlight.trim()}" berhasil ditambahkan`,
+      icon: <CheckCircle className="h-4 w-4 text-green-500" />,
+    });
   };
 
   const removeHighlight = (index: number) => {
+    const removedHighlight = formData.highlights[index];
     setFormData({
       ...formData,
       highlights: formData.highlights.filter((_, i) => i !== index)
+    });
+    
+    toast({
+      title: "Highlight Dihapus",
+      description: `"${removedHighlight}" berhasil dihapus`,
+      icon: <Info className="h-4 w-4 text-blue-500" />,
     });
   };
 
@@ -617,6 +800,9 @@ export default function AdminPackages() {
           </CardContent>
         </Card>
       </div>
+      
+      {/* Toast Notification Container */}
+      <Toaster />
     </div>
   );
 }
