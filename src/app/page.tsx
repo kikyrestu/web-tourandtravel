@@ -590,10 +590,10 @@ export default function Home() {
             <div className="overflow-hidden">
               <div 
                 className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentPackageIndex * (400 + 32)}px)` }}
+                style={{ transform: `translateX(-${currentPackageIndex * (500 + 32)}px)` }}
               >
                 {tourPackages.map((pkg) => (
-                  <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '400px' }}>
+                  <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '500px' }}>
                     <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full">
                       <div className="flex">
                         {/* Left Side - Image */}
