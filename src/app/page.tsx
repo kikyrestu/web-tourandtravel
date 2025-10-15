@@ -585,85 +585,116 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Professional Tour Package Cards */}
+          {/* Premium Tour Package Cards */}
           <div className="relative">
             <div className="overflow-hidden">
               <div 
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentPackageIndex * (350 + 24)}px)` }}
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentPackageIndex * (380 + 32)}px)` }}
               >
                 {tourPackages.map((pkg) => (
-                  <div key={pkg.id} className="flex-shrink-0 mr-6" style={{ width: '350px' }}>
-                    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-0 shadow-lg">
+                  <div key={pkg.id} className="flex-shrink-0 mr-8" style={{ width: '380px' }}>
+                    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 border-0 shadow-xl bg-white rounded-2xl">
                       {/* Image Section */}
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative h-52 overflow-hidden">
                         {pkg.image && (
                           <img
                             src={pkg.image}
                             alt={pkg.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
                         )}
                         
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                        {/* Premium Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 via-20% to-transparent"></div>
                         
-                        {/* Discount Badge */}
-                        {pkg.discount && (
-                          <div className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-                            {pkg.discount} OFF
+                        {/* Top Badges */}
+                        <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                          {pkg.discount && (
+                            <div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm">
+                              {pkg.discount} OFF
+                            </div>
+                          )}
+                          <div className="bg-white/95 backdrop-blur-md px-3 py-2 rounded-full flex items-center space-x-1 shadow-lg">
+                            <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                            <span className="text-sm font-bold text-gray-800">{pkg.rating}</span>
+                            <span className="text-xs text-gray-500">({pkg.reviews})</span>
                           </div>
-                        )}
-                        
-                        {/* Rating Badge */}
-                        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full flex items-center space-x-1 shadow-lg">
-                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                          <span className="text-xs font-bold text-gray-800">{pkg.rating}</span>
                         </div>
                         
-                        {/* Location Badge */}
-                        <div className="absolute bottom-3 left-3 flex items-center space-x-1 text-white">
-                          <MapPin className="w-4 h-4" />
-                          <span className="text-sm font-medium">{pkg.location}</span>
+                        {/* Bottom Location */}
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <div className="flex items-center space-x-2 text-white/95">
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                            <MapPin className="w-4 h-4" />
+                            <span className="text-sm font-semibold tracking-wide">{pkg.location}</span>
+                          </div>
                         </div>
+                        
+                        {/* Floating Decorative Elements */}
+                        <div className="absolute top-2 right-2 w-8 h-8 bg-white/10 rounded-full blur-sm"></div>
+                        <div className="absolute bottom-2 left-2 w-6 h-6 bg-white/5 rounded-full blur-sm"></div>
                       </div>
                       
                       {/* Content Section */}
-                      <div className="p-5 bg-white">
-                        {/* Title */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1 group-hover:text-orange-500 transition-colors">
-                          {pkg.name}
-                        </h3>
-                        
-                        {/* Duration */}
-                        <div className="flex items-center space-x-2 text-sm text-gray-500 mb-3">
-                          <Clock className="w-4 h-4" />
-                          <span>{pkg.duration}</span>
+                      <div className="p-6 bg-gradient-to-b from-white to-gray-50">
+                        {/* Title with Icon */}
+                        <div className="flex items-start space-x-3 mb-4">
+                          <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <Mountain className="w-5 h-5 text-orange-500" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-xl font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300">
+                              {pkg.name}
+                            </h3>
+                            <div className="flex items-center space-x-2 text-sm text-gray-500">
+                              <Clock className="w-4 h-4" />
+                              <span>{pkg.duration}</span>
+                              <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
+                              <span>Available</span>
+                            </div>
+                          </div>
                         </div>
                         
-                        {/* Highlights */}
-                        <div className="mb-4">
-                          <div className="flex flex-wrap gap-1">
-                            {pkg.highlights?.slice(0, 3).map((highlight, index) => (
-                              <span key={index} className="bg-orange-50 text-orange-600 px-2 py-1 rounded-full text-xs font-medium">
-                                {highlight}
-                              </span>
+                        {/* Description */}
+                        <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">
+                          {pkg.description}
+                        </p>
+                        
+                        {/* Premium Highlights */}
+                        <div className="mb-6">
+                          <div className="flex flex-wrap gap-2">
+                            {pkg.highlights?.slice(0, 4).map((highlight, index) => (
+                              <div key={index} className="flex items-center space-x-1 bg-gradient-to-r from-orange-50 to-amber-50 px-3 py-1.5 rounded-full border border-orange-100">
+                                <div className="w-1.5 h-1.5 bg-orange-400 rounded-full"></div>
+                                <span className="text-xs font-medium text-orange-700">{highlight}</span>
+                              </div>
                             ))}
                           </div>
                         </div>
                         
-                        {/* Price & CTA */}
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-col">
+                        {/* Price & CTA Section */}
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                          <div className="flex flex-col space-y-1">
                             {pkg.originalPrice && (
-                              <span className="text-xs text-gray-400 line-through">{pkg.originalPrice}</span>
+                              <div className="flex items-center space-x-2">
+                                <span className="text-xs text-gray-400 line-through">{pkg.originalPrice}</span>
+                                <span className="bg-red-100 text-red-600 px-2 py-0.5 rounded text-xs font-bold">
+                                  Save 20%
+                                </span>
+                              </div>
                             )}
-                            <span className="text-xl font-bold text-gray-900">{pkg.price}</span>
-                            <span className="text-xs text-gray-500">per orang</span>
+                            <div className="flex items-baseline space-x-1">
+                              <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                                {pkg.price}
+                              </span>
+                              <span className="text-xs text-gray-500 font-medium">/orang</span>
+                            </div>
                           </div>
                           
-                          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-medium transition-all duration-300 hover:shadow-lg hover:scale-105">
-                            Pesan
+                          <Button className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-6 py-3 text-sm font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center space-x-2">
+                            <span>Pesan Sekarang</span>
+                            <ChevronRight className="w-4 h-4" />
                           </Button>
                         </div>
                       </div>
@@ -673,31 +704,31 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Navigation Arrows */}
+            {/* Premium Navigation Arrows */}
             {tourPackages.length > 0 && (
               <>
                 <button
                   onClick={prevPackage}
                   disabled={currentPackageIndex === 0}
-                  className={`absolute left-2 top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  className={`absolute left-4 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${
                     currentPackageIndex === 0 
-                      ? 'bg-gray-300 cursor-not-allowed opacity-50' 
-                      : 'bg-white hover:bg-orange-500 hover:text-white shadow-lg hover:shadow-xl'
+                      ? 'bg-gray-200/50 cursor-not-allowed opacity-40' 
+                      : 'bg-white/95 hover:bg-gradient-to-r hover:from-orange-500 hover:to-amber-500 hover:text-white shadow-2xl hover:shadow-orange-200/50 backdrop-blur-md'
                   }`}
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                 </button>
                 
                 <button
                   onClick={nextPackage}
                   disabled={currentPackageIndex >= tourPackages.length - getVisiblePackages()}
-                  className={`absolute right-2 top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  className={`absolute right-4 top-1/2 transform -translate-y-1/2 z-30 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 ${
                     currentPackageIndex >= tourPackages.length - getVisiblePackages()
-                      ? 'bg-gray-300 cursor-not-allowed opacity-50' 
-                      : 'bg-white hover:bg-orange-500 hover:text-white shadow-lg hover:shadow-xl'
+                      ? 'bg-gray-200/50 cursor-not-allowed opacity-40' 
+                      : 'bg-white/95 hover:bg-gradient-to-r hover:from-orange-500 hover:to-amber-500 hover:text-white shadow-2xl hover:shadow-orange-200/50 backdrop-blur-md'
                   }`}
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                 </button>
               </>
             )}
