@@ -184,9 +184,13 @@ export default function HeroPage() {
       const url = editingSlide ? `/api/admin/hero/${editingSlide.id}` : '/api/admin/hero';
       const method = editingSlide ? 'PUT' : 'POST';
       
+      const token = localStorage.getItem('adminToken');
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(payload)
       });
 
@@ -234,15 +238,22 @@ export default function HeroPage() {
 
     // Update in database
     try {
+      const token = localStorage.getItem('adminToken');
       await Promise.all([
         fetch(`/api/admin/hero/${newSlides[currentIndex].id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({ sortOrder: newSlides[currentIndex].sortOrder })
         }),
         fetch(`/api/admin/hero/${newSlides[targetIndex].id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({ sortOrder: newSlides[targetIndex].sortOrder })
         })
       ]);
