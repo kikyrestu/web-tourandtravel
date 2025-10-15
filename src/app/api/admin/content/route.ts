@@ -15,14 +15,28 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch content from database
-    const [headerContent, heroContent] = await Promise.all([
-      db.siteSettings.findFirst(),
-      db.heroSlides.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' } })
+    const [headerContent, heroContent, packagesSettings, testimonialsSettings, footerSettings, contactSettings] = await Promise.all([
+      db.siteSettings.findFirst({ where: { id: 'main' } }),
+      db.heroSlide.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' } }),
+      db.siteSettings.findFirst({ where: { id: 'packages_settings' } }),
+      db.siteSettings.findFirst({ where: { id: 'testimonials_settings' } }),
+      db.siteSettings.findFirst({ where: { id: 'footer_settings' } }),
+      db.siteSettings.findFirst({ where: { id: 'contact_settings' } })
     ]);
+
+    // Parse JSON fields
+    const packagesData = packagesSettings?.siteKeywords ? JSON.parse(packagesSettings.siteKeywords) : null;
+    const testimonialsData = testimonialsSettings?.siteKeywords ? JSON.parse(testimonialsSettings.siteKeywords) : null;
+    const footerData = footerSettings?.siteKeywords ? JSON.parse(footerSettings.siteKeywords) : null;
+    const contactData = contactSettings?.siteKeywords ? JSON.parse(contactSettings.siteKeywords) : null;
 
     return NextResponse.json({
       header: headerContent,
-      hero: heroContent[0] || null
+      hero: heroContent[0] || null,
+      packages: packagesData,
+      testimonials: testimonialsData,
+      footer: footerData,
+      contact: contactData
     });
   } catch (error) {
     console.error("Error fetching content:", error);
@@ -67,22 +81,86 @@ export async function POST(request: NextRequest) {
       });
     } else if (section === 'hero') {
       // Update hero content
-      await db.heroSlides.upsert({
+      await db.heroSlide.upsert({
         where: { id: 'main' },
         update: {
           title: content.title,
           subtitle: content.subtitle,
-          features: content.features,
-          stats: content.stats
+          features: JSON.stringify(content.features || []),
+          stats: JSON.stringify(content.stats || {})
         },
         create: {
           id: 'main',
           title: content.title,
           subtitle: content.subtitle,
-          features: content.features,
-          stats: content.stats,
+          features: JSON.stringify(content.features || []),
+          stats: JSON.stringify(content.stats || {}),
           isActive: true,
           sortOrder: 1
+        }
+      });
+    } else if (section === 'packages') {
+      // Update packages section settings
+      await db.siteSettings.upsert({
+        where: { id: 'packages_settings' },
+        update: {
+          siteName: content.title,
+          siteDescription: content.subtitle,
+          siteKeywords: JSON.stringify(content)
+        },
+        create: {
+          id: 'packages_settings',
+          siteName: content.title,
+          siteDescription: content.subtitle,
+          siteKeywords: JSON.stringify(content)
+        }
+      });
+    } else if (section === 'testimonials') {
+      // Update testimonials section settings
+      await db.siteSettings.upsert({
+        where: { id: 'testimonials_settings' },
+        update: {
+          siteName: content.title,
+          siteDescription: content.subtitle,
+          siteKeywords: JSON.stringify(content)
+        },
+        create: {
+          id: 'testimonials_settings',
+          siteName: content.title,
+          siteDescription: content.subtitle,
+          siteKeywords: JSON.stringify(content)
+        }
+      });
+    } else if (section === 'footer') {
+      // Update footer settings
+      await db.siteSettings.upsert({
+        where: { id: 'footer_settings' },
+        update: {
+          siteName: content.logoText,
+          siteDescription: content.description,
+          siteKeywords: JSON.stringify(content)
+        },
+        create: {
+          id: 'footer_settings',
+          siteName: content.logoText,
+          siteDescription: content.description,
+          siteKeywords: JSON.stringify(content)
+        }
+      });
+    } else if (section === 'contact') {
+      // Update contact section settings
+      await db.siteSettings.upsert({
+        where: { id: 'contact_settings' },
+        update: {
+          siteName: content.title,
+          siteDescription: content.subtitle,
+          siteKeywords: JSON.stringify(content)
+        },
+        create: {
+          id: 'contact_settings',
+          siteName: content.title,
+          siteDescription: content.subtitle,
+          siteKeywords: JSON.stringify(content)
         }
       });
     }
