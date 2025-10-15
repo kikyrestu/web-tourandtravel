@@ -106,6 +106,12 @@ export default function AdminDashboard() {
       ]
     },
     {
+      title: "Hero Slides",
+      icon: Mountain,
+      href: "/admin/hero",
+      description: "Kelola hero section slides",
+    },
+    {
       title: "Tour Packages",
       icon: Package,
       href: "/admin/packages",

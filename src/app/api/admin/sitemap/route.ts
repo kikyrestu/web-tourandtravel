@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const token = authHeader.substring(7");
+    const token = authHeader.substring(7);
     jwt.verify(token, JWT_SECRET);
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";

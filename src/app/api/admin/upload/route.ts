@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir, stat } from "fs/promises";
 import { join } from "path";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
@@ -57,9 +57,11 @@ export async function POST(request: NextRequest) {
 
     // Create uploads directory if it doesn't exist
     const uploadDir = join(process.cwd(), "public", "uploads");
-    const fs = require('fs');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    try {
+      await stat(uploadDir);
+    } catch (error) {
+      // Directory doesn't exist, create it
+      await mkdir(uploadDir, { recursive: true });
     }
 
     // Save file

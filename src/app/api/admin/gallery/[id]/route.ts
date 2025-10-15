@@ -74,11 +74,11 @@ export async function DELETE(
     });
 
     if (galleryItem) {
-      // Delete the file from filesystem
-      const fs = require('fs').promises;
-      const path = require('path');
-      
+      // Delete the file from filesystem using dynamic imports
       try {
+        const fs = (await import('fs')).promises;
+        const path = (await import('path')).default;
+        
         const filePath = path.join(process.cwd(), 'public', galleryItem.imagePath);
         await fs.unlink(filePath);
       } catch (fileError) {
