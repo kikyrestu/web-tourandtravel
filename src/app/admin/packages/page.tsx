@@ -22,7 +22,13 @@ import {
   Clock, 
   Users,
   LayoutDashboard,
-  LogOut
+  LogOut,
+  Image as ImageIcon,
+  Tag,
+  DollarSign,
+  Calendar,
+  X,
+  PlusCircle
 } from "lucide-react";
 
 interface TourPackage {
@@ -51,6 +57,7 @@ export default function AdminPackages() {
   const [isLoading, setIsLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingPackage, setEditingPackage] = useState<TourPackage | null>(null);
+  const [newHighlight, setNewHighlight] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     duration: "",
@@ -60,7 +67,7 @@ export default function AdminPackages() {
     rating: 4.5,
     reviews: 0,
     location: "",
-    highlights: "",
+    highlights: [] as string[],
     description: "",
     image: "",
     isActive: true,
@@ -126,7 +133,7 @@ export default function AdminPackages() {
         },
         body: JSON.stringify({
           ...formData,
-          highlights: formData.highlights.split(",").map(h => h.trim()),
+          highlights: formData.highlights,
         }),
       });
 
@@ -153,7 +160,7 @@ export default function AdminPackages() {
         },
         body: JSON.stringify({
           ...formData,
-          highlights: formData.highlights.split(",").map(h => h.trim()),
+          highlights: formData.highlights,
         }),
       });
 
@@ -198,7 +205,7 @@ export default function AdminPackages() {
       rating: pkg.rating,
       reviews: pkg.reviews,
       location: pkg.location,
-      highlights: pkg.highlights.join(", "),
+      highlights: pkg.highlights,
       description: pkg.description,
       image: pkg.image || "",
       isActive: pkg.isActive,
@@ -217,16 +224,34 @@ export default function AdminPackages() {
       rating: 4.5,
       reviews: 0,
       location: "",
-      highlights: "",
+      highlights: [],
       description: "",
       image: "",
       isActive: true,
     });
+    setNewHighlight("");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
     router.push("/admin/login");
+  };
+
+  const addHighlight = () => {
+    if (newHighlight.trim() && !formData.highlights.includes(newHighlight.trim())) {
+      setFormData({
+        ...formData,
+        highlights: [...formData.highlights, newHighlight.trim()]
+      });
+      setNewHighlight("");
+    }
+  };
+
+  const removeHighlight = (index: number) => {
+    setFormData({
+      ...formData,
+      highlights: formData.highlights.filter((_, i) => i !== index)
+    });
   };
 
   if (isLoading) {
@@ -279,137 +304,222 @@ export default function AdminPackages() {
                 Tambah Paket
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>
-                  {editingPackage ? "Edit Paket" : "Tambah Paket Baru"}
+                <DialogTitle className="flex items-center gap-2">
+                  <Tag className="h-5 w-5" />
+                  {editingPackage ? "Edit Paket Tour" : "Tambah Paket Tour Baru"}
                 </DialogTitle>
                 <DialogDescription>
-                  {editingPackage ? "Edit informasi paket tour" : "Tambah paket tour baru"}
+                  {editingPackage ? "Edit informasi paket tour yang sudah ada" : "Buat paket tour baru dengan informasi lengkap"}
                 </DialogDescription>
               </DialogHeader>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">Nama Paket</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="duration">Durasi</Label>
-                    <Input
-                      id="duration"
-                      value={formData.duration}
-                      onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                      placeholder="2 Hari 1 Malam"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <Label htmlFor="price">Harga</Label>
-                    <Input
-                      id="price"
-                      value={formData.price}
-                      onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                      placeholder="Rp 750.000"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="originalPrice">Harga Asli</Label>
-                    <Input
-                      id="originalPrice"
-                      value={formData.originalPrice}
-                      onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
-                      placeholder="Rp 950.000"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="discount">Diskon</Label>
-                    <Input
-                      id="discount"
-                      value={formData.discount}
-                      onChange={(e) => setFormData({ ...formData, discount: e.target.value })}
-                      placeholder="21%"
-                    />
+              
+              <div className="space-y-6">
+                {/* Basic Information */}
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    Informasi Dasar
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="name" className="text-sm font-medium">Nama Paket</Label>
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Paket Bromo Midnight"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="duration" className="text-sm font-medium">Durasi</Label>
+                      <Input
+                        id="duration"
+                        value={formData.duration}
+                        onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                        placeholder="2 Hari 1 Malam"
+                        className="mt-1"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <Label htmlFor="rating">Rating</Label>
-                    <Input
-                      id="rating"
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      max="5"
-                      value={formData.rating}
-                      onChange={(e) => setFormData({ ...formData, rating: parseFloat(e.target.value) })}
-                    />
+
+                {/* Pricing Information */}
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <DollarSign className="h-4 w-4" />
+                    Informasi Harga
+                  </h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="price" className="text-sm font-medium">Harga *</Label>
+                      <Input
+                        id="price"
+                        value={formData.price}
+                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                        placeholder="Rp 750.000"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="originalPrice" className="text-sm font-medium">Harga Asli</Label>
+                      <Input
+                        id="originalPrice"
+                        value={formData.originalPrice}
+                        onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
+                        placeholder="Rp 950.000"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="discount" className="text-sm font-medium">Diskon</Label>
+                      <Input
+                        id="discount"
+                        value={formData.discount}
+                        onChange={(e) => setFormData({ ...formData, discount: e.target.value })}
+                        placeholder="21%"
+                        className="mt-1"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="reviews">Jumlah Review</Label>
-                    <Input
-                      id="reviews"
-                      type="number"
-                      value={formData.reviews}
-                      onChange={(e) => setFormData({ ...formData, reviews: parseInt(e.target.value) })}
-                    />
+                </div>
+
+                {/* Location & Rating */}
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    Lokasi & Rating
+                  </h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="location" className="text-sm font-medium">Lokasi *</Label>
+                      <Input
+                        id="location"
+                        value={formData.location}
+                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        placeholder="Bromo, Jawa Timur"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="rating" className="text-sm font-medium">Rating</Label>
+                      <Input
+                        id="rating"
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        max="5"
+                        value={formData.rating}
+                        onChange={(e) => setFormData({ ...formData, rating: parseFloat(e.target.value) })}
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="reviews" className="text-sm font-medium">Jumlah Review</Label>
+                      <Input
+                        id="reviews"
+                        type="number"
+                        value={formData.reviews}
+                        onChange={(e) => setFormData({ ...formData, reviews: parseInt(e.target.value) })}
+                        className="mt-1"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="location">Lokasi</Label>
-                    <Input
-                      id="location"
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Bromo, Jawa Timur"
-                    />
+                </div>
+
+                {/* Highlights Management */}
+                <div className="bg-yellow-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <Star className="h-4 w-4" />
+                    Highlights / Fitur Unggulan
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex gap-2">
+                      <Input
+                        value={newHighlight}
+                        onChange={(e) => setNewHighlight(e.target.value)}
+                        placeholder="Tambah highlight baru..."
+                        onKeyPress={(e) => e.key === 'Enter' && addHighlight()}
+                        className="flex-1"
+                      />
+                      <Button onClick={addHighlight} type="button" size="sm">
+                        <PlusCircle className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {formData.highlights.map((highlight, index) => (
+                        <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                          {highlight}
+                          <X 
+                            className="h-3 w-3 cursor-pointer hover:text-red-500" 
+                            onClick={() => removeHighlight(index)}
+                          />
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <Label htmlFor="highlights">Highlights (comma separated)</Label>
-                  <Input
-                    id="highlights"
-                    value={formData.highlights}
-                    onChange={(e) => setFormData({ ...formData, highlights: e.target.value })}
-                    placeholder="Sunrise Penanjakan, Lautan Pasir, Kawah Bromo"
-                  />
+
+                {/* Description */}
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <ImageIcon className="h-4 w-4" />
+                    Deskripsi & Gambar
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="description" className="text-sm font-medium">Deskripsi Paket</Label>
+                      <Textarea
+                        id="description"
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        rows={4}
+                        placeholder="Deskripsikan pengalaman yang akan didapatkan pelanggan..."
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="image" className="text-sm font-medium">URL Gambar</Label>
+                      <Input
+                        id="image"
+                        value={formData.image}
+                        onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                        placeholder="https://example.com/image.jpg atau /path/to/image.jpg"
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="description">Deskripsi</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    rows={3}
-                  />
+
+                {/* Status */}
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold">Status Paket</h3>
+                      <p className="text-sm text-gray-600">Aktifkan atau non-aktifkan paket tour</p>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Switch
+                        id="isActive"
+                        checked={formData.isActive}
+                        onCheckedChange={(checked) => setFormData({ ...formData, isActive: checked })}
+                      />
+                      <Label htmlFor="isActive" className="text-sm font-medium">
+                        {formData.isActive ? "Aktif" : "Non-aktif"}
+                      </Label>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="image">URL Gambar</Label>
-                  <Input
-                    id="image"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://example.com/image.jpg"
-                  />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="isActive"
-                    checked={formData.isActive}
-                    onCheckedChange={(checked) => setFormData({ ...formData, isActive: checked })}
-                  />
-                  <Label htmlFor="isActive">Aktif</Label>
-                </div>
-                <div className="flex justify-end space-x-2">
+
+                {/* Action Buttons */}
+                <div className="flex justify-between items-center pt-4 border-t">
                   <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
                     Batal
                   </Button>
                   <Button onClick={editingPackage ? handleUpdatePackage : handleCreatePackage}>
-                    {editingPackage ? "Update" : "Simpan"}
+                    {editingPackage ? "Update Paket" : "Simpan Paket"}
                   </Button>
                 </div>
               </div>
