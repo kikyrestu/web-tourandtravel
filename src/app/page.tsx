@@ -560,67 +560,66 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Horizontal Tour Packages */}
-          <div className="overflow-x-auto pb-4 scrollbar-hide">
-            <div className="flex space-x-6 w-max">
-              {tourPackages.map((pkg) => (
-                <Card key={pkg.id} className="w-80 overflow-hidden hover:shadow-lg transition-shadow flex-shrink-0">
-                  <div className="relative h-40">
-                    {pkg.image && (
-                      <img
-                        src={pkg.image}
-                        alt={pkg.name}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
-                    {pkg.discount && (
-                      <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                        {pkg.discount} OFF
-                      </div>
-                    )}
+          {/* Grid Tour Packages */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {tourPackages.map((pkg) => (
+              <Card key={pkg.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="relative h-48">
+                  {pkg.image && (
+                    <img
+                      src={pkg.image}
+                      alt={pkg.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                  {pkg.discount && (
+                    <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      {pkg.discount} OFF
+                    </div>
+                  )}
+                </div>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-xl">{pkg.name}</CardTitle>
+                    <div className="flex items-center space-x-1">
+                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                      <span className="text-sm font-semibold">{pkg.rating}</span>
+                      <span className="text-sm text-gray-500">({pkg.reviews})</span>
+                    </div>
                   </div>
-                  <CardHeader className="pb-3">
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-lg">{pkg.name}</CardTitle>
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                        <span className="text-xs font-semibold">{pkg.rating}</span>
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <Clock className="w-4 h-4" />
+                    <span>{pkg.duration}</span>
+                    <MapPin className="w-4 h-4 ml-2" />
+                    <span>{pkg.location}</span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 mb-4 text-sm">{pkg.description}</p>
+                  
+                  <div className="space-y-2 mb-4">
+                    {pkg.highlights?.slice(0, 3).map((highlight, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <span className="text-sm text-gray-600">{highlight}</span>
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-2 text-xs text-gray-600">
-                      <Clock className="w-3 h-3" />
-                      <span>{pkg.duration}</span>
-                      <MapPin className="w-3 h-3 ml-1" />
-                      <span>{pkg.location}</span>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-gray-600 mb-3 text-xs line-clamp-2">{pkg.description}</p>
-                    
-                    <div className="space-y-1 mb-3">
-                      {pkg.highlights?.slice(0, 2).map((highlight, index) => (
-                        <div key={index} className="flex items-center space-x-2">
-                          <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                          <span className="text-xs text-gray-600">{highlight}</span>
-                        </div>
-                      ))}
-                    </div>
+                    ))}
+                  </div>
 
-                    <div className="flex items-center justify-between">
-                      <div>
-                        {pkg.originalPrice && (
-                          <span className="text-xs text-gray-500 line-through">{pkg.originalPrice}</span>
-                        )}
-                        <div className="text-lg font-bold text-orange-500">{pkg.price}</div>
-                      </div>
-                      <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-xs">
-                        Pesan
-                      </Button>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      {pkg.originalPrice && (
+                        <span className="text-sm text-gray-500 line-through">{pkg.originalPrice}</span>
+                      )}
+                      <div className="text-2xl font-bold text-orange-500">{pkg.price}</div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    <Button className="bg-orange-500 hover:bg-orange-600">
+                      Pesan Sekarang
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           {tourPackages.length === 0 && (
